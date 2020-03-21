@@ -1,0 +1,6 @@
+name: capstone
+dependencies:
+  - numpy
+  - pandas
+  - jupyter
+  - seaborn
