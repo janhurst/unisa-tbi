@@ -1,0 +1,133 @@
+<!doctype html>
+<html>
+<style>
+form {
+    margin: auto;
+    width: 75%;
+}
+
+.result {
+    margin: auto;
+    width: 35%;
+    border: 1px solid #ccc;
+}
+/* Add a black background color to the top navigation */
+.topnav {
+  background-color: #333;
+  overflow: hidden;
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+/* Add a color to the active/current link */
+.topnav a.active {
+  background-color: #4CAF50;
+  color: white;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+  border: 1px solid #ddd;
+}
+
+th, td {
+  text-align: left;
+  padding: 8px;
+}
+td
+{
+    padding:0 45px;
+}
+tr:nth-child(even){background-color: #f2f2f2}
+
+</style>
+<head>
+    <title>SA Pathology</title>
+	 <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<div class="topnav">
+  <a class="active" href="/">New Request</a>
+  <a href="/records">Record</a>
+  <a href="/dashboard">Dashboard</a>
+</div>
+
+
+<form action="{{ url_for('main') }}" method="POST">
+    <fieldset>
+        <h4>Patient List</h4>
+	</fieldset>	
+<div style="overflow-x:auto;">
+<table style="width:50%">
+  <tr>
+    <th>GCS</th>
+	<th>Injury Mechanism</th>
+	<th>AMS</th>
+	<th>AMSSleep</th>
+	<th>AMSRepeat</th>
+	<th>AMSOth</th>
+	<th>SFxBasOto</th>
+	<th>SFxPalp</th>
+	<th>SFxBasRhi</th>
+	<th>SFxBasHem</th>
+	<th>HemaSize</th>
+	<th>HemaLoc</th>
+	<th>OSICspine</th>
+	<th>OSIExtremity</th>
+	<th>LOCSeparate</th>
+	<th>NeuroD</th>
+	<th>ClavFace</th>
+	<th>ActNorm</th>
+    <th>Date Submitted</th>
+  </tr>
+  {% for patient in Patients %}
+  <tr>
+    <td>{{patient.gcs}}</td>
+    <td>{{patient.highImpactInjSev}}</td>
+	<td>{{patient.ams}}</td>
+	<td>{{patient.amsSleep}}</td>
+	<td>{{patient.amsRepeat}}</td>
+	<td>{{patient.amsOth}}</td>
+	<td>{{patient.sfxBasOto}}</td>
+	<td>{{patient.sfxPalp}}</td>
+	<td>{{patient.sfxBasRhi}}</td>
+	<td>{{patient.sfxBasHem}}</td>
+	<td>{{patient.hemaSize}}</td>
+	<td>{{patient.hemaLoc}}</td>
+	<td>{{patient.osiCspine}}</td>
+	<td>{{patient.osiExtremity}}</td>
+	<td>{{patient.locSeparate}}</td>
+	<td>{{patient.neuroD}}</td>
+	<td>{{patient.clavFace}}</td>
+	<td>{{patient.actNorm}}</td>
+    <td>{{patient.dateSubmited}}</td>
+  </tr>
+  {% endfor %}
+</table>
+</div>
+  </body>
+
+</form>
+<br>
+
+</html>

@@ -1,0 +1,288 @@
+<!doctype html>
+<html>
+<style>
+form {
+    margin: auto;
+    width: 35%;
+}
+
+.result {
+    margin: auto;
+    width: 35%;
+    border: 1px solid #ccc;
+}
+/* Add a black background color to the top navigation */
+.topnav {
+  background-color: #333;
+  overflow: hidden;
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+/* Add a color to the active/current link */
+.topnav a.active {
+  background-color: #4CAF50;
+  color: white;
+}
+</style>
+
+<head>
+    <title>SA Pathology</title>
+	 <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<div class="topnav">
+  <a class="active" href="/">New Request</a>
+  <a href="/records">Record</a>
+  <a href="/dashboard">Dashboard</a>
+</div>
+
+
+{% if result %}
+<div class="result" align="center">
+    	<br/>
+		<p style="font-size:50px">{{ result }}</p> 
+		<br/>
+</div>
+{% endif %}
+<form action="{{ url_for('main') }}" method="POST">
+    <fieldset>
+        <h4>Please enter all below information to get the result:</h4>
+        
+		<br>
+		Glasgow Coma Scale - Total:
+        <input name="GCSTotal" type="number" required>
+        <br>
+        <br> 
+		
+		<div title="AMS">
+		Other signs of altered mental status - All:<br>
+		<label class="radio-inline"> 
+		<input type="radio" id="AMS_1" name="AMS" value="1">
+				<label for="AMS_1">Yes</label>
+		</label>
+		<label class="radio-inline"> 
+		<input type="radio" id="AMS_0" name="AMS" value="0">
+				<label for="AMS_0">No</label>
+		</label>
+		</div>
+		
+        <br> 
+		<div title="AMSSleep">
+		Other signs of altered mental status - Sleep:<br>
+		<label class="radio-inline"> 
+		<input type="radio" id="AMSSleep_1" name="AMSSleep" value="1">
+				<label for="AMSSleep_1">Yes</label>
+		</label>
+		<label class="radio-inline"> 
+		<input type="radio" id="AMSSleep_0" name="AMSSleep" value="0">
+				<label for="AMSSleep_0">No</label>
+		</label>
+        </div>
+		
+		<br>
+		<div title="AMSRepeat">
+		Other signs of altered mental status: repetitive questions:<br>
+		<label class="radio-inline"> 
+		<input type="radio" id="AMSRepeat_1" name="AMSRepeat" value="1">
+				<label for="AMSRepeat_1">Yes</label>
+		</label>
+		<label class="radio-inline"> 
+		<input type="radio" id="AMSRepeat_0" name="AMSRepeat" value="0">
+				<label for="AMSRepeat_0">No</label>
+		</label>
+        </div>
+		
+		<br>
+		<div title="AMSOth">
+		Other signs of altered mental status: other:<br>
+		<label class="radio-inline"> 
+		<input type="radio" id="AMSOth_1" name="AMSOth" value="1">
+				<label for="AMSOth_1">Yes</label>
+		</label>
+		<label class="radio-inline"> 
+		<input type="radio" id="AMSOth_0" name="AMSOth" value="0">
+				<label for="AMSOth_0">No</label>
+		</label>
+        </div>
+		
+		<br>
+		<div title="LOCSeparate">
+		History of loss of consciousness?:<br>
+		<label class="radio-inline"> 
+		<input type="radio" id="LOCSeparate_1" name="LOCSeparate" value="1">
+				<label for="LOCSeparate_1">Yes</label>
+		</label>
+		<label class="radio-inline"> 
+		<input type="radio" id="LOCSeparate_0" name="LOCSeparate" value="0">
+				<label for="LOCSeparate_0">No</label>
+		</label>
+        </div>
+		
+		<br>
+		<div title="SFxBasOto">
+		Basilar skull fracture - CSF otorrhea:<br>
+		<label class="radio-inline"> 
+		<input type="radio" id="SFxBasOto_1" name="SFxBasOto" value="1">
+				<label for="SFxBasOto_1">Yes</label>
+		</label>
+		<label class="radio-inline"> 
+		<input type="radio" id="SFxBasOto_0" name="SFxBasOto" value="0">
+				<label for="SFxBasOto_0">No</label>
+		</label>
+        </div>
+		
+		
+		<br>
+		<div title="SFxPalp">
+		Palpable skull fracture?:<br>
+		<label class="radio-inline"> 
+		<input type="radio" id="SFxPalp_1" name="SFxPalp" value="1">
+				<label for="SFxPalp_1">Yes</label>
+		</label>
+		<label class="radio-inline"> 
+		<input type="radio" id="SFxPalp_0" name="SFxPalp" value="0">
+				<label for="SFxPalp_0">No</label>
+		</label>
+        </div>
+		
+		<br> Severity of injury mechanism:
+		<select id="High_impact_InjSev" name="High_impact_InjSev" required>
+				<option value=""></option>
+				<option value="1">Low</option>
+				<option value="2">Moderate</option>
+				<option value="3">High</option>
+		</select>
+        <br>
+		<br> 
+		
+		<div title="NeuroD">
+		Neurological deficit (other than mental status)?:<br>
+		<label class="radio-inline"> 
+		<input type="radio" id="NeuroD_1" name="NeuroD" value="1">
+				<label for="NeuroD_1">Yes</label>
+		</label>
+		<label class="radio-inline"> 
+		<input type="radio" id="NeuroD_0" name="NeuroD" value="0">
+				<label for="NeuroD_0">No</label>
+		</label>
+        </div>
+		
+		<div title="ClavFace">
+		<br> Trauma above the clavicles region: face:<br>
+		<label class="radio-inline"> 
+		<input type="radio" id="ClavFace_1" name="ClavFace" value="1">
+				<label for="ClavFace_1">Yes</label>
+		</label>
+		<label class="radio-inline"> 
+		<input type="radio" id="ClavFace_0" name="ClavFace" value="0">
+				<label for="ClavFace_0">No</label>
+		</label>
+        </div>
+		
+		<div title="SFxBasRhi">
+		<br> Basilar skull fracture: CSF rhinorrhea:<br>
+		<label class="radio-inline"> 
+		<input type="radio" id="SFxBasRhi_1" name="SFxBasRhi" value="1">
+				<label for="SFxBasRhi_1">Yes</label>
+		</label>
+		<label class="radio-inline"> 
+		<input type="radio" id="SFxBasRhi_0" name="SFxBasRhi" value="0">
+				<label for="SFxBasRhi_0">No</label>
+		</label>
+        </div>
+		
+		<div title="HemaSize">
+		<br> Size (diameter) of largest hematoma or swelling:
+		<select id="HemaSize" name="HemaSize" required>
+				<option value=""></option>
+				<option value="1">Small</option>
+				<option value="2">Medium</option>
+				<option value="3">Large</option>
+		</select>
+		</div>
+
+		<div title="HemaLoc">
+		<br> Hematoma(s) or swelling(s) location(s) involved:
+		<select id="HemaLoc" name="HemaLoc" required>
+				<option value=""></option>
+				<option value="1">Frontal</option>
+				<option value="2">Occipital</option>
+				<option value="3">Parietal/Temporal</option>
+		</select>
+        </div>
+		
+		<div title="OSICspine">
+		<br> Other (non-head) substantial injury: c-spine:<br>
+		<label class="radio-inline"> 
+		<input type="radio" id="OSICspine_1" name="OSICspine" value="0">
+				<label for="OSICspine_1">Yes</label>
+		</label>
+		<label class="radio-inline"> 
+		<input type="radio" id="OSICspine_0" name="OSICspine" value="1">
+				<label for="OSICspine_0">No</label>
+		</label>
+        </div>
+		
+		<div title="SFxBasHem">
+		<br> Basilar skull fracture: hemotympanum:<br>
+		<label class="radio-inline"> 
+		<input type="radio" id="SFxBasHem_1" name="SFxBasHem" value="1">
+				<label for="SFxBasHem_1">Yes</label>
+		</label>
+		<label class="radio-inline"> 
+		<input type="radio" id="SFxBasHem_0" name="SFxBasHem" value="0">
+				<label for="SFxBasHem_0">No</label>
+		</label>
+        </div>
+		
+		<div title="OSIExtremity">
+		<br> Other (non-head) substantial injury: extremity:<br>
+		<label class="radio-inline"> 
+		<input type="radio" id="OSIExtremity_1" name="OSIExtremity" value="1">
+				<label for="OSIExtremity_1">Yes</label>
+		</label>
+		<label class="radio-inline"> 
+		<input type="radio" id="OSIExtremity_0" name="OSIExtremity" value="0">
+				<label for="OSIExtremity_0">No</label>
+		</label>
+        </dir>
+		
+		<div title="ActNorm">
+		<br> Does the parent think the child is acting normally / like themself?:<br>
+		<label class="radio-inline"> 
+		<input type="radio" id="ActNorm_1" name="ActNorm" value="0">
+				<label for="ActNorm_1">Yes</label>
+		</label>
+		<label class="radio-inline"> 
+		<input type="radio" id="ActNorm_0" name="ActNorm" value="1">
+				<label for="ActNorm_0">No</label>
+		</label>
+        </dir>
+		
+		<br>
+		<br>
+        <input type="submit" align="center">
+    </fieldset>
+</form>
+<br>
+
+</html>
