@@ -1,2 +1,2 @@
 # Jupyter Notebooks
-Can include Data Cleaning, EDA, ML training etc
+The notebooks here are the "agreed" logic/code.
