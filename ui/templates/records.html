@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>SA Pathology</title>
+	 <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel = "stylesheet" type = "text/css" href = "styleR.css" />
+</head>
+
+<div class="topnav">
+  <a class="active" href="main.html">New Request</a>
+  <a href="records.html">Record</a>
+  <a href="/dashboard">Dashboard</a>
+</div>
+
+
+<form action="{{ url_for('main') }}" method="POST">
+    <fieldset>
+        <h2>Patient List</h2>
+	</fieldset>	
+<div style="overflow-x:auto;">
+<table style="width:100%">
+  <tr>
+	<th>Patient Id</th>
+    <th>GCS</th>
+	<th>Injury Mechanism</th>
+	<th>AMS</th>
+	<th>Prediction</th>
+	<th>Evolution</th>
+    <th>Date Submitted</th>
+	<th></th>
+	<th></th>
+  </tr>
+  
+  <tr>
+	<td>{{patient.id}}</td>
+    <td>{{patient.gcs}}</td>
+    <td>{{patient.highImpactInjSev}}</td>
+	<td>{{patient.ams}}</td>
+	<td>{{patient.prediction}}</td>
+	<td>{{patient.evolution}}</td>
+    <td>{{patient.dateSubmited}}</td>
+	 <td>
+	 <a href="{{url_for('editRecord', id = patient.id )}}">
+           Edit
+       </a>
+	   </td>
+	   <td>
+       <a href="{{url_for('deleteRecord', id = patient.id)}}" style="margin-left: 10px;">
+           Delete
+       </a>
+	   </td>
+  </tr>
+  
+</table>
+</div>
+  </body>
+
+</form>
+<br>
+
+</html>

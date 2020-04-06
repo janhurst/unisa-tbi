@@ -1,0 +1,579 @@
+<!doctype html>
+<html>
+<style>
+form {
+    margin: auto;
+    width: 35%;
+}
+
+.result {
+    margin: auto;
+    width: 35%;
+    border: 1px solid #ccc;
+}
+/* Add a black background color to the top navigation */
+.topnav {
+  background-color: #333;
+  overflow: hidden;
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+/* Add a color to the active/current link */
+.topnav a.active {
+  background-color: #4CAF50;
+  color: white;
+}
+</style>
+
+<head>
+	<title>SA Pathology</title>
+	<meta charset="utf-8">
+  	<meta name="viewport" content="width=device-width, initial-scale=1">
+  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+ 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  	<link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+ 	<link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
+    	<link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
+    	<link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+    	<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    	<link rel = "stylesheet" type = "text/css" href = "C:\Users\Bhavya\Documents\capstone\ffiles\static\css\style.css" />
+    
+
+</head>
+
+<div class="topnav">
+	<a class="active" href="main_updated.html">New Request</a>
+  	<a href="records.html">Record</a>
+  	<a href="main_updated.html">Dashboard</a>
+</div>
+
+
+
+<div class="result" align="center">
+    		<br/>
+		<p style="font-size:50px">{{ result }}</p> 
+		<br/>
+</div>
+<H1> Hi, do you need an opinion about whether CT Scan should be performed or not?</H1>
+<form action="{{ url_for('main') }}" method="POST">
+	<fieldset>
+		
+        	<h2>Please enter all below information to get the result:</h2>
+		<br> Gender of Patient 
+		<select id="Gender" name="Gender" required>
+				<option value="">Select</option>
+				<option value="1">Male</option>
+				<option value="2">Female</option>  
+		</select>      	
+
+		
+
+		<br> Ethnicity
+		<select id="Ethnicity" name="Ethnicity" required>
+				<option value="">Select</option>
+				<option value="1">Hispanic</option>
+				<option value="2">Non-Hispanic</option>
+		</select>
+		<br> Race
+		<select id="Race" name="Race" required>
+				<option value="">Select</option>
+				<option value="1">White</option>
+				<option value="2">Black</option>
+				<option value="3">Asian</option>
+				<option value="4">American Indian/Alaskan Native</option>
+				<option value="5">Pacific Islander</option>
+				<option value="90">Other</option>
+		</select>		
+		<br>Is the physician's evaluation being made after the patient was intubated?
+		<select id="Intubated" name="Intubated" required>
+				<option value="">Select</option>
+				<option value="0">No</option>
+				<option value="1">Yes</option>  
+		</select> 
+		<br>Is the physician's evaluation being made after the patient was pharmacologically paralyzed?
+		<select id="Paralyzed" name="Paralyzed" required>
+				<option value="">Select</option>
+				<option value="0">No</option>
+				<option value="1">Yes</option>
+		</select>
+		<br>History: Injury Mechanism<br>
+		<select id="InjuryMech" name="InjuryMech" onchange='checkInjuryMech(this.value);' required>
+				<option value="">Select</option>
+				<option value="1">Occupant in motor vehicle collision(MVC)</option>
+				<option value="2">Pedestrian struck by moving vehicle</option>
+				<option value="3">Bike rider struck by automobile</option>
+				<option value="4">Bike collision or fall from bike while riding</option>
+				<option value="5">Other wheeled transport crash</option>
+				<option value="6">Fall to ground from standing/walking/running</option>
+				<option value="7">Walked or ran into stationary object</option>
+				<option value="8">Fall from an elevation</option>
+				<option value="9">Fall down stairs</option>
+				<option value="10">Sports</option>
+				<option value="11">Assault</option>
+				<option value="12">Object Struck head - accidental</option>
+				<option value="90">Other Mechanism</option>
+				<br>
+		</select>
+		<input type="text" name="InjuryMech" id="InjuryMech1" style='display:none;'/>
+		<br><br>
+		 Glasgow Coma Scale - Total:
+        	<input id="myCol" name="GCSTotal" type="number" required>
+		
+        	<br>
+        	<br> 
+		<div id= "panel2" class="container" >
+        		<br> 
+			
+			<div  id= "myCol" class="pane-heading"><H4 border-style: "solid";> Other signs of altered mental status</H4></div>
+			<br>Severity of injury mechanism:
+        			<select id="AMSSleep_1" name="AMSSleep_1" required>
+					<option value="">Select</option>
+					<option value="0">No</option>
+					<option value="1">Yes</option>
+				</select>
+				<br>Repetitive questions:<br>
+				<select id="AMSRepeat_1" name="AMSRepeat_1" required>
+					<option value="">Select</option>
+					<option value="0">No</option>
+					<option value="1">Yes</option>
+				</select>	
+		
+				<br>Other:
+				<select id="AMSOth_1" name="AMSOth_1" required>
+					<option value="">Select</option>
+					<option value="0">No</option>
+					<option value="1">Yes</option>
+				</select>
+				<br>
+      			</div>
+      
+			<br>
+		
+    		
+		<div class="form-group">
+    			<label for="Seiz"><H4>Post-traumatic seizure?</H4></label>
+    				<select id="Seiz" name="Seiz">
+					<option value="">Select</option>
+          				<option value="0">No</option>
+          				<option value="1">Yes</option>
+    				</select>
+  		</div>
+  		<div id="otherFieldDiv">
+    			<label for="SeizOccur"><H4>When did the post-traumatic seizure occur?</H4></label>
+    				<select  id="SeizOccur" name="SeizOccur" >
+      					<option value ="">Select</option>
+      					<option value = "1">Immediately</option>
+      					<option value ="2">Within 30 mins</option>
+      					<option value="3"> more than 30 mins</option>
+      
+      
+    				</select>
+    				<label for="SeizLen"><H4>Duration of post-traumatic seizure:</H4></label>
+    				<select id="SeizLen" name="SeizLen">
+      					<option value="">Select</option>
+      					<option value="1"> < 1 min</option>
+      					<option value="2">1-<5min</option>
+      					<option value="3">5-15min</option>
+      					<option value="4"> > 15mins</option>
+      
+    				</select>
+		</div>
+
+		
+		
+    		<label for="HA_verb"><H4>Headache at time of ED evaluation?</H4></label>
+    			<select id="HA_verb" name="HA_verb">
+				<option value="">Select</option>
+          			<option value="0">No</option>
+          			<option value="1">Yes</option>
+				<option value="91">Pre-verbal/Non-verbal</option>
+    			</select>
+
+  		<div id="otherFieldDivH">
+    			<label for="HASeverity"><H4>Severity of headache</H4></label>
+    				<select  id="HASeverity" name="HASeverity">
+      					<option value ="">Select</option>
+      					<option value = "1">Mild</option>
+      					<option value ="2">Moderate</option>
+      					<option value="3">Severe (Intense)</option>
+    				</select>
+    			<label for="HAStart"><H4>When did the headache start?</H4></label>
+    				<select id="HAStart" name="HAStart">
+      					<option value="">Select</option>
+      					<option value="1">Before head injury</option>
+      					<option value="2">Within 1 hr of event</option>
+      					<option value="3">1-4 hrs after event</option>
+      					<option value="4"> >4hrs after event</option>
+    				</select>
+		</div>
+
+		<label for="Vomit"><H4>Vomiting (at any time after injury)?</H4></label>
+    			<select id="Vomit" name="Vomit">
+				<option value="">Select</option>
+          			<option value="0">No</option>
+          			<option value="1">Yes</option>
+    			</select>
+
+  		<div id="otherFieldDivV">
+    			<br>How many vomiting episodes?<br>
+    				<select  id="VomitNbr" name="VomitNbr">
+      					<option value ="">Select</option>
+      					<option value = "1">Once</option>
+      					<option value ="2">Twice</option>
+      					<option value="3"> >2 times</option>
+    				</select>
+    			<br>When did the vomiting start?<br>
+    				<select id="VomitStart" name="VomitStart">
+      					<option value="">Select</option>
+      					<option value="1">Before head injury</option>
+      					<option value="2">Within 1 hr of event</option>
+      					<option value="3">1-4 hrs after event</option>
+      					<option value="4"> >4hrs after event</option>
+    				</select>
+			<br>When was the last episode of vomiting?<br>
+    				<select id="VomitLast" name="VomitStart">
+      					<option value="">Select</option>
+      					<option value="1">< 1 hr before ED evaluation</option>
+      					<option value="2">1 -4 hrs before ED evaluation</option>
+      					<option value="3">> 4 hrs before ED evaluation</option>
+    				</select>		
+		</div>		
+
+		<label for="AMS"><H4>GCS < 15 or other signs of altered mental status (agitated, sleepy, slow to respond, repetitive questions in the ED, other)(at any time after injury)?</H4></label>
+    			<select id="AMS" name="AMS">
+				<option value="">Select</option>
+          			<option value="0">No</option>
+          			<option value="1">Yes</option>
+    			</select>
+
+  		<div id="otherFieldDivA">
+		<div id= "panel2" class="container" >
+		Other signs of altered mental status:<br> 
+    			<label for="AMSAgitated"><H4>Agitated</H4></label>
+    				<select  id="AMSAgitated" name="AMSAgitated">
+      					<option value ="">Select</option>
+      					<option value = "0">No</option>
+      					<option value ="1">Yes</option>
+    				</select>
+    			<br>Sleepy
+    				<select id="AMSSleep" name="AMSSleep">
+      					<option value ="">Select</option>
+      					<option value = "0">No</option>
+      					<option value ="1">Yes</option>
+    				</select>
+			<br>Repetitive questions in ED
+    				<select id="AMSRepeat" name="AMSRepeat">
+      					<option value ="">Select</option>
+      					<option value = "0">No</option>
+      					<option value ="1">Yes</option>
+    				</select>
+			<br>Slow to Respond
+    				<select id="AMSSlow" name="AMSSlow">
+      					<option value ="">Select</option>
+      					<option value = "0">No</option>
+      					<option value ="1">Yes</option>
+    				</select>		
+			<br>Other
+    				<select id="AMSOth" name="AMSOth">
+      					<option value ="">Select</option>
+      					<option value = "0">No</option>
+      					<option value ="1">Yes</option>
+    				</select>
+		</div>			
+		</div>
+		
+		<label for="SFxBas"><H4>Signs of basilar skull fracture?</H4></label>
+    			<select id="SFxBas" name="SFxBas">
+				<option value="">Select</option>
+          			<option value="0">No</option>
+          			<option value="1">Yes</option>
+    			</select>
+
+  		<div id="otherFieldDivB">
+		<div id= "panel2" class="container" >
+		Other signs of altered mental status:<br> 
+    			<label for="SFxBasHem"><H4>Hemotympanum</H4></label>
+    				<select  id="SFxBasHem" name="SFxBasHem"> 
+      					<option value ="">Select</option>
+      					<option value = "0">No</option>
+      					<option value ="1">Yes</option>
+    				</select>
+    			<br>CSF otorrhea
+    				<select id="SFxBasOto" name="SFxBasOto">
+      					<option value ="">Select</option>
+      					<option value = "0">No</option>
+      					<option value ="1">Yes</option>
+    				</select>
+			<br>Periorbital ecchymosis (raccoon eyes)
+    				<select id="SFxBasPer" name="SFxBasPer">
+      					<option value ="">Select</option>
+      					<option value = "0">No</option>
+      					<option value ="1">Yes</option>
+    				</select>
+			<br>Retroauricular ecchymosis (battle's sign)
+    				<select id="SFxBasRet" name="SFxBasRet">
+      					<option value ="">Select</option>
+      					<option value = "0">No</option>
+      					<option value ="1">Yes</option>
+    				</select>		
+			<br>CSF rhinorrhea
+    				<select id="SFxBasRhi" name="SFxBasRhi">
+      					<option value ="">Select</option>
+      					<option value = "0">No</option>
+      					<option value ="1">Yes</option>
+    				</select>
+		</div>			
+		</div>		
+		<label for="SFxPalp"><H4>Palpable skull fracture?</H4></label>
+    			<select id="SFxPalp" name="SFxPalp">
+				<option value="">Select</option>
+          			<option value="0">No</option>
+          			<option value="1">Yes</option>
+				<option value="2">Unclear Exam</option>
+    			</select>
+
+  		<div id="otherFieldDivS">
+    			Does the fracture feel depressed?<br>
+    				<select  id="SFxPalpDepress" name="SFxPalpDepress">
+      					<option value ="">Select</option>
+      					<option value = "0">No</option>
+      					<option value ="1">Yes</option>
+    				</select>
+		<br>
+		</div>	
+		<label for="FontBulg"><H4>Anterior fontanelle bulging?</H4></label>
+    			<select id="FontBulg" name="FontBulg">
+      				<option value="">Select</option>
+      				<option value="0">No/Closed</option>
+      				<option value="1">Yes</option>
+    			</select>
+
+		<label for="Dizzy"><H4>Dizziness (at ED evaluation)?</H4></label>
+    			<select id="Dizzy" name="Dizzy">
+      				<option value="">Select</option>
+      				<option value="0">No</option>
+      				<option value="1">Yes</option>
+    			</select>
+
+		
+		<label for="Hema"><H4>Raised scalp hematoma(s) or swelling(s)?</H4></label>
+    			<select id="Hema" name="Hema">
+				<option value="">Select</option>
+          			<option value="0">No</option>
+          			<option value="1">Yes</option>
+    			</select>
+
+  		<div id="otherFieldDivHema">
+    			<label for="HemaLoc">Hematoma(s) or swelling(s) location(s) involved</H4></label>
+    				<select  id="HemaLoc" name="HemaLoc">
+      					<option value ="">Select</option>
+      					<option value = "1">Frontal</option>
+      					<option value ="2">Occipital</option>
+      					<option value="3">Parietal/Temporal</option>
+    				</select>
+    			<br>Size (diameter) of largest hematoma or swelling
+    				<select id="HemaSize" name="HemaSize">
+      					<option value="">Select</option>
+      					<option value="1">Small (<1 cm, barely palpable)</option>
+      					<option value="2">Medium (1-3 cm)</option>
+      					<option value="3">Large (>3 cm)</option>
+    				</select>		
+		</div>		
+
+		<br>
+		
+		<label for="Clav"><H4>Any evidence of trauma (including laceration, abrasion, hematoma) above the clavicles (includes neck/face/scalp)?</H4></label>
+    			<select id="Clav" name="Clav">
+				<option value="">Select</option>
+          			<option value="0">No</option>
+          			<option value="1">Yes</option>
+    			</select>
+
+  		<div id="otherFieldDivClav">
+		<div id= "panel2" class="container" >
+		Trauma above the clavicles region:<br> Face
+    				<select  id="ClavFace" name="ClavFace">
+      					<option value ="">Select</option>
+      					<option value = "0">No</option>
+      					<option value ="1">Yes</option>
+    				</select>
+    			<br>Neck
+    				<select id="ClavNeck" name="ClavNeck">
+      					<option value ="">Select</option>
+      					<option value = "0">No</option>
+      					<option value ="1">Yes</option>
+    				</select>
+			<br>Scalp-frontal
+    				<select id="ClavFro" name="ClavFro">
+      					<option value ="">Select</option>
+      					<option value = "0">No</option>
+      					<option value ="1">Yes</option>
+    				</select>
+			<br>Scalp-occipital
+    				<select id="ClavOcc" name="ClavOcc">
+      					<option value ="">Select</option>
+      					<option value = "0">No</option>
+      					<option value ="1">Yes</option>
+    				</select>		
+			<br>Scalp-parietal
+    				<select id="ClavPar" name="ClavPar">
+      					<option value ="">Select</option>
+      					<option value = "0">No</option>
+      					<option value ="1">Yes</option>
+    				</select>
+			<br>Scalp-temporal
+    				<select id="ClavTem" name="ClavTem">
+      					<option value ="">Select</option>
+      					<option value = "0">No</option>
+      					<option value ="1">Yes</option>
+    				</select>
+		</div>			
+		</div>		
+
+		<label for="NeuroD"><H4>Neurological deficit (other than mental status)?</H4></label>
+    			<select id="NeuroD" name="NeuroD">
+				<option value="">Select</option>
+          			<option value="0">No</option>
+          			<option value="1">Yes</option>
+    			</select>
+
+  		<div id="otherFieldDivNeuroD">
+		<div id= "panel2" class="container" >
+		Trauma above the clavicles region:<br>Motor
+    				<select  id="NeuroDMotor" name="NeuroDMotor">
+      					<option value ="">Select</option>
+      					<option value = "0">No</option>
+      					<option value ="1">Yes</option>
+    				</select>
+    			<br>Sensory
+    				<select id="NeuroDSensory" name="NeuroDSensory">
+      					<option value ="">Select</option>
+      					<option value = "0">No</option>
+      					<option value ="1">Yes</option>
+    				</select>
+			<br>Cranial Nerve (includes pupil reactivity)
+    				<select id="NeuroDCranial" name="NeuroDCranial">
+      					<option value ="">Select</option>
+      					<option value = "0">No</option>
+      					<option value ="1">Yes</option>
+    				</select>
+			<br>Reflexes
+    				<select id="NeuroDReflex" name="NeuroDReflex">
+      					<option value ="">Select</option>
+      					<option value = "0">No</option>
+      					<option value ="1">Yes</option>
+    				</select>		
+			<br>Other deficits (e.g. cerebellar, gait)
+    				<select id="NeuroDOth" name="NeuroDOth">
+      					<option value ="">Select</option>
+      					<option value = "0">No</option>
+      					<option value ="1">Yes</option>
+    				</select>	
+		</div>			
+		</div>	
+
+		<label for="OSI"><H4>Clinical evidence of other (non-head) substantial injuries: (includes but not limited to fractures, intra-abdominal injuries, intra-thoracic injuries and lacerations requiring operating room repair.)</H4></label>
+    			<select id="OSI" name="OSI">
+				<option value="">Select</option>
+          			<option value="0">No</option>
+          			<option value="1">Yes</option>
+    			</select>
+
+  		<div id="otherFieldDivOSI">
+		<div id= "panel2" class="container" >
+		Other (non-head) substantial injury:<br> Extremity
+    				<select  id="OSIExtremity" name="OSIExtremity">
+      					<option value ="">Select</option>
+      					<option value = "0">No</option>
+      					<option value ="1">Yes</option>
+    				</select>
+    			<br>Laceration requiring repair in the operating room
+    				<select id="OSICut" name="OSICut">
+      					<option value ="">Select</option>
+      					<option value = "0">No</option>
+      					<option value ="1">Yes</option>
+    				</select>
+			<br>C-spine
+    				<select id="OSICspine" name="OSICspine">
+      					<option value ="">Select</option>
+      					<option value = "0">No</option>
+      					<option value ="1">Yes</option>
+    				</select>
+			<br>Chest/Back/Flank
+    				<select id="OSIFlank" name="OSIFlank">
+      					<option value ="">Select</option>
+      					<option value = "0">No</option>
+      					<option value ="1">Yes</option>
+    				</select>		
+			<br>Intra-abdominal
+    				<select id="OSIAbdomen" name="OSIAbdomen">
+      					<option value ="">Select</option>
+      					<option value = "0">No</option>
+      					<option value ="1">Yes</option>
+    				</select>
+			<br>Pelvis
+    				<select id="OSIPelvis" name="OSIPelvis">
+      					<option value ="">Select</option>
+      					<option value = "0">No</option>
+      					<option value ="1">Yes</option>
+    				</select>
+			<br>Other
+    				<select id="OSIOth" name="OSIOth">
+      					<option value ="">Select</option>
+      					<option value = "0">No</option>
+      					<option value ="1">Yes</option>
+    				</select>
+		</div>			
+		</div>		
+
+		<br> Clinical suspicion for alcohol or drug intoxication (not by laboratory testing)?
+		<select id="Drugs" name="Drugs" required>
+				<option value="">Select</option>
+				<option value="0">No</option>
+				<option value="1">Yes</option>
+				
+		</select>
+		<br> History of loss of Consciousness:
+		<select id="LOCSeparate" name="LOCSeparate" required>
+				<option value="">Select</option>
+				<option value="0">No</option>
+				<option value="1">Yes</option>
+				<option value="2">Suspected</option>
+				
+		</select>
+		<br> Duration of Loss of Consciousness:
+		<select id="LocLen" name="LocLen" required>
+				<option value="">Select</option>
+				<option value="1"><5Sec</option>
+				<option value="2">5Sec-< 1 Min</option>
+				<option value="3">1 - 5 Min</option>
+				<option value="4"> >5 Min </option>
+				<option value="92"> Not Applicable</option>
+		</select>
+        <br>
+		<br>
+        
+	<input id="button4" type="submit" align="center"></div>
+    </fieldset>
+</form>
+<br>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
+<script src="j.js"></script>
+</html>

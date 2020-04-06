@@ -1,0 +1,126 @@
+Attribute,Missing Values,Thoughts,How I handled
+Dizzy,15972,Unknown,93-Unknown
+Ethnicity,15966,Unknown,93-Unknown
+ActNorm,3335,Unknown,93-Unknown
+Race,3208,Unknown/other,93-Unknown
+LocLen,2556,These records have 1 or 2 value for LOCSeparate,95 -unmentioned
+Observed,2376,"Unknown as its not mentioned in form and no other way to get it, cant delete this much rows. Not Important",Drop
+Amnesia_verb,2296,Unknown,93-Unknown
+LOCSeparate,1892,"Unknown as its not mentioned in form and no other way to get it, cant delete this much rows.",95 -unmentioned
+Drugs,1818,Just missing,95 -unmentioned
+HAStart,1332,"This attribute depends on ""HA_verb"" which is having value 1 for all missing values. Its important.",95 -unmentioned
+GCSMotor,1310,Independent variable. Important,95 -unmentioned
+GCSVerbal,1298,Independent variable. Important,95 -unmentioned
+GCSEye,1288,Independent variable. Important,95 -unmentioned
+HASeverity,1044,"Dependent variable of ""HA_verb"". ",95 -unmentioned
+VomitLast,992,"Dependent variable of ""Vomit"". ",95 -unmentioned
+CTSed,914,"Dependent variable of ""CTForm1"". Not Important!",95 -unmentioned
+Seiz,912,Drop,
+HemaSize,742,"Dependent variable of ""Hema"". Important",95 -unmentioned
+NeuroD,660,Independent variable. Important,95 -unmentioned
+HA_verb,652,Independent variable. Important,95 -unmentioned
+SFxBas,445,Independent variable. Important,95 -unmentioned
+Vomit,443,Independent variable. Unkown,95 -unmentioned
+VomitStart,413,Dependent variable. ,95 -unmentioned
+Sedated,339,Independent variable. Not important.,95 -unmentioned
+Paralyzed,336,Independent variable. Not important.,95 -unmentioned
+High_impact_InjSev,334,Independent variable. Important,95 -unmentioned
+Intubated,325,Independent variable. Not sure.,95 -unmentioned
+AMS,316,Independent variable. Important,95 -unmentioned
+Hema,305,Independent variable. Important,95 -unmentioned
+InjuryMech,301,Independent variable. Not important.,Dropped 
+VomitNbr,297,Dependent on Vomit. Not imp,Dropped 
+HemaLoc,211,"Dependent on ""Hema"". Important",95 -unmentioned
+OSI,195,Independent variable. Not sure.,95 -unmentioned
+FontBulg,167,Independent variable. Important,95 -unmentioned
+Clav,137,Independent variable. Important,95 -unmentioned
+SeizLen,117,Dependent on SeizOccur. Not sure,95 -unmentioned
+SFxPalp,104,Independent. Important,95 -unmentioned
+SeizOccur,71,"Dependent on ""Seiz"". Important",95 -unmentioned
+SFxPalpDepress,55,"Dependent on ""SFxPalp"". Important",95 -unmentioned
+CTForm1,28,Independent variable. Important,95 -unmentioned
+EDDisposition,25,Independent. Not important.,Dropped 
+PosIntFinal,20,Independent. Important,Rows Dropped 
+EmplType,18,not Important,Rows Dropped 
+DeathTBI,8,not Important,Rows Dropped 
+Intub24Head,4,Independent. Not sure.,Rows Dropped 
+Gender,3,"Independent, important",Rows Dropped 
+HospHead,3,not sure,Rows Dropped 
+Neurosurgery,1,not sure,Rows Dropped 
+Certification,0,,
+ClavTem,0,,
+ClavPar,0,,
+ClavOcc,0,,
+ClavFro,0,,
+ClavNeck,0,,
+ClavFace,0,,
+AMSRepeat,0,,
+AMSOth,0,,
+NeuroDSensory,0,,
+GCSTotal,0,,
+SFxBasRhi,0,,
+SFxBasRet,0,,
+SFxBasPer,0,,
+SFxBasOto,0,,
+SFxBasHem,0,,
+GCSGroup,0,,
+AMSAgitated,0,,
+AMSSleep,0,,
+AMSSlow,0,,
+NeuroDMotor,0,,
+OSICspine,0,,
+NeuroDCranial,0,,
+Finding7,0,,
+AgeinYears,0,,
+AgeTwoPlus,0,,
+CTDone,0,,
+EDCT,0,,
+PosCT,0,,
+Finding1,0,,
+Finding2,0,,
+Finding3,0,,
+Finding4,0,,
+Finding5,0,,
+Finding6,0,,
+Finding8,0,,
+CTSedOth,0,,
+Finding9,0,,
+Finding10,0,,
+Finding11,0,,
+Finding12,0,,
+Finding13,0,,
+Finding14,0,,
+Finding20,0,,
+Finding21,0,,
+Finding22,0,,
+Finding23,0,,
+HospHeadPosCT,0,,
+AgeInMonth,0,,
+CTSedRqst,0,,
+NeuroDReflex,0,,
+IndHA,0,,
+NeuroDOth,0,,
+OSIExtremity,0,,
+OSICut,0,,
+OSIFlank,0,,
+OSIAbdomen,0,,
+OSIPelvis,0,,
+OSIOth,0,,
+IndAge,0,,
+IndAmnesia,0,,
+IndAMS,0,,
+IndClinSFx,0,,
+IndHema,0,,
+CTSedAge,0,,
+IndLOC,0,,
+IndMech,0,,
+IndNeuroD,0,,
+IndRqstMD,0,,
+IndRqstParent,0,,
+IndRqstTrauma,0,,
+IndSeiz,0,,
+IndVomit,0,,
+IndXraySFx,0,,
+IndOth,0,,
+CTSedAgitate,0,,
+PatNum,0,,
