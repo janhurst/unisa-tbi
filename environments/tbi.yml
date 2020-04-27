@@ -1,0 +1,17 @@
+name: tbi
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - pandas
+  - scikit-learn
+  - neptune-client
+  - jupyter
+  - seaborn
+  - tpot
+  - py-xgboost
+  - ipykernel
+  - mlflow
+  - pip
+  - pip:
+    - mlflow
