@@ -21,6 +21,9 @@ if __name__ == "__main__":
     # create the classifier
     clf = DecisionTreeClassifier()
 
+    # save the feature names for use later in prediction
+    clf.features = X[0:0]
+
     # neptune initialization - NEPTUNE_API_TOKEN and NEPTUNE_PROJECT environment variables must be set
     neptune.init()
 
