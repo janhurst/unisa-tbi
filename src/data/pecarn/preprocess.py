@@ -15,7 +15,7 @@ def preprocess(df):
     # preprocessing steps
     
     # remove dependent columns
-    df = _remove_dependents(df)
+    #df = _remove_dependents(df)
 
     # impute NaN values
     df = _impute_boolean_nans(df)
