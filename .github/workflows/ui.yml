@@ -2,6 +2,8 @@ name: Deploy User Interface
 
 on:
   push:
+    branches: 
+      - master
     paths:
     - 'ui/**'
 
