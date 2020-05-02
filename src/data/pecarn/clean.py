@@ -35,7 +35,7 @@ def clean(df):
     df = _clean_Amnesia_verb(df)
 
     # finally rename
-    df = to_new_names(df)
+    #df = to_new_names(df)
 
     return df
 
@@ -46,7 +46,6 @@ def _drop_columns(df):
     # duplicate or implied by other columns
     drop_cols.append('AgeinYears')  
     drop_cols.append('High_impact_InjSev')
-    drop_cols.append('GCSGroup')
 
     # variables that are not relevant
     drop_cols.append('Certification')       
@@ -84,8 +83,9 @@ def _clean_gcs(df):
     df.loc[gcs_fill, 'GCSVerbal'] = 5
     df.loc[gcs_fill, 'GCSMotor'] = 6
 
-    # then drop the GCSTotal
+    # then drop the GCSTotal, and GCSGroup, we no longer need them
     df.drop(columns='GCSTotal', inplace=True)
+    df.drop(columns='GCSGroup', inplace=True)
     
     return df
 
