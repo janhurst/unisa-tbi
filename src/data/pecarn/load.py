@@ -23,12 +23,9 @@ def load(fromCsv: bool = False, withLabels: bool = True):
     if (not fromCsv or not withLabels) and path.exists(_TBI_PKL_FILE):
         return _frompkl()
     else:
-        df = _fromcsv()
-        if withLabels:
-            df = _label_categories(df)
-        return df
+        return _fromcsv(withLabels)
 
-def _fromcsv():
+def _fromcsv(withLabels):
     """ Load the PECARN TBI dataset from a CSV file if it exists """
     logger.info('Loading from CSV file ' + _TBI_CSV_FILE)
     try:
@@ -39,6 +36,10 @@ def _fromcsv():
 
         # reorder the columns alphabetically
         tbi = tbi.reindex(sorted(tbi.columns), axis=1)
+
+        # add label categories
+        if withLabels:
+            tbi = _label_categories(tbi)
 
         # pickle the tbi data
         with open(_TBI_PKL_FILE, 'wb') as f:

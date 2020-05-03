@@ -8,18 +8,13 @@ collected by the [Pediatric Emergency Care Applied Research Network](http://peca
 
 The study examined the need for a CT scan for children presenting with head trauma to emergency departments in North America with the aim of identifying children at very low risk of a clinically important traumatic brain injury (ciTBI) for whom a CT scan can be avoided.
 
-This repository contains separate components a that are being worked on in parallel. During the active project phase between March and June 2020 each team member is working from their own separate branch, and these are not being actively rebased.
+This repository contains separate components that are being worked on in parallel. During the active project phase between March and June 2020 each team member is working from their own separate branch.
 
 An overview of the architecture for this projects is shown below.
 
 [![Architecture Summary](https://user-images.githubusercontent.com/16224889/80082997-b0b5b900-8587-11ea-802e-96e19a3c61fd.png)](https://user-images.githubusercontent.com/16224889/80082997-b0b5b900-8587-11ea-802e-96e19a3c61fd.png)
 
 # Getting Started
-Clone this project and obtain the study data set and place it in the same directory as the project clone.
-
-[Visual Studio Code](https://code.visualstudio.com/), and the [Anaconda Python](https://www.anaconda.com/distribution/) distribution are recommended.
-
-A Visual Studio Code workspace file is provided.
 
 ## Study Dataset
 This project requires a [study dataset](http://pecarn.org/studyDatasets/StudyDetails?studyID=4) from PECARN. Please obtain the CSV data file from PECARN and place it in the same directory as the project files.
@@ -35,7 +30,7 @@ conda activate tbi
 
 When executing any Python scripts or working with notebooks, please ensure the project's `src` folder is on Python's module search path (i.e. in the system path, or the ```PYTHONPATH```)
 
-A Visual Studio Code workspace named `tbi.code-workspace` is provided, along with several workspace configuration settings. The Microsoft Python extension is recommended.
+A Visual Studio Code workspace named `unisa-tbi.code-workspace` is provided, along with several workspace configuration settings. The Microsoft Python extension is recommended.
 
 ## Loading Initial Data
 
@@ -62,3 +57,15 @@ X, y = pecarn.preprocess(pecarn.clean(pecarn.load()))
 ```
 
 The preprocess module applies further cleaning rules to the dataframe to prepare it for consumption in a machine learning algorithm. Specifically, NaNs are imputed or otherwise removed, and categorical data is one-hot-encoded. The data is returned in an input (X) and class (y) tuple, where `PosIntFinal` is the class label.
+
+The preprocessing logic is also available as an sklearn transformer pipeline, which can be prepended to any `sklearn.pipeline.Pipeline`:
+
+```
+from sklearn.pipeline import Pipeline
+
+my_pipeline = Pipeline(steps=[
+    ('data.pecarn.preprocess', pecarn.preprocess.make_preprocess_pipeline),
+    ('my_other_transformers'), ...),
+    ...
+])
+```
