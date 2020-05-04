@@ -11,13 +11,17 @@ import matplotlib.pyplot as plt
 import Imputation
 
 def binarized(pecarn_df):
-    # Convert into Category
+   # Convert into Category
     pecarn_df['AgeInMonth'] = pd.to_numeric(pecarn_df['AgeInMonth'])
-    pecarn_df['GCSTotal'] = pd.to_numeric(pecarn_df['GCSTotal'])
+    pecarn_df['GCSEye'] = pd.to_numeric(pecarn_df['GCSEye'])
+    pecarn_df['GCSMotor'] = pd.to_numeric(pecarn_df['GCSMotor'])
+    pecarn_df['GCSVerbal'] = pd.to_numeric(pecarn_df['GCSVerbal'])
     for col in list(pecarn_df):
         if col not in ['AgeInMonth']:
-            if col not in ['GCSTotal']:
-                pecarn_df[col] = pecarn_df[col].astype('category')
+            if col not in ['GCSEye']:
+                if col not in ['GCSMotor']:
+                    if col not in ['GCSVerbal']:
+                        pecarn_df[col] = pecarn_df[col].astype('category')
     # Convert into Binary
 
     pecarn_df1 = pd.get_dummies(pecarn_df.loc[:, pecarn_df.columns != 'PosIntFinal'])
@@ -33,3 +37,4 @@ def binarized(pecarn_df):
 
     print("Binarisation Done")
     return pecarn_df
+

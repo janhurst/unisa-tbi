@@ -22,6 +22,8 @@ def datacleaning(pecarn_data):
     # Counting NAN
     count_nan = pecarn_df.isnull().sum()
     count_nan.sort_values(ascending=False).head(50)
+
+
     # Droping unncessory dataset - this needs to revised
     # EMployeID, Certification not important, AgeinMonth,Vomit and GCSGroup is repeated
     Not_Imp_Data = ['EmplType',
@@ -77,11 +79,6 @@ def datacleaning(pecarn_data):
                 'IndXraySFx',
                 'IndOth']
 
-    # Dropping by observing NAN Count
-    NAN_Count_High = [
-        'VomitStart',
-        'VomitLast']
-
     # Based on physician's evaluation
     physician_evalution = ['CTSed',
                            'Sedated',
@@ -95,7 +92,7 @@ def datacleaning(pecarn_data):
                        'HospHeadPosCT',
                        'HospHead']
     print("Data Cleaning Done")
-    to_drop = Not_Imp_Data + CT_Data + CT_Order + NAN_Count_High + physician_evalution + High_Correlated
+    to_drop = Not_Imp_Data + CT_Data + CT_Order + physician_evalution + High_Correlated
     pecarn_df.drop(to_drop, inplace=True, axis=1)
     return pecarn_df
 
