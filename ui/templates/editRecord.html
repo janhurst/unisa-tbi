@@ -3,14 +3,9 @@
 <style>
 form {
     margin: auto;
-    width: 75%;
+    width: 30%;
 }
 
-.result {
-    margin: auto;
-    width: 35%;
-    border: 1px solid #ccc;
-}
 /* Add a black background color to the top navigation */
 .topnav {
   background-color: #333;
@@ -39,7 +34,6 @@ form {
   color: white;
 }
 </style>
-
 <head>
     <title>SA Pathology</title>
 	 <meta charset="utf-8">
@@ -54,14 +48,39 @@ form {
   <a href="/records">Record</a>
   <a href="/dashboard">Dashboard</a>
 </div>
-
-
-
-<form action="{{ url_for('main') }}" method="POST">
+<form action="{{ url_for('editRecord',id = id)}}" method="POST">
     <fieldset>
-        <h4>There should be a dashboard here: start working on it</h4>
+        <h4>Please edit the patient info:</h4>
+        
+		Patient Id:
+		{{ id }}
+		
+		<br><br>
+		
+		Prediction:
+		{{ prediction }}
+		
+		<br><br>
+		
+		<div title="evolution">
+		Evalution:<br>
+		<label class="radio-inline"> 
+		<input type="radio" id="evolution_1" name="evolution" value="1">
+				<label for="AMS_1">Yes</label>
+		</label>
+		<label class="radio-inline"> 
+		<input type="radio" id="evolution_0" name="evolution" value="0">
+				<label for="AMS_0">No</label>
+		</label>
+		</div>
+		<br>
+		Feedback:
+		<textarea type="text" id="feedback" name="feedback"></textarea>
+		
+		<br><br>
+        <input type="submit" align="center">
     </fieldset>
 </form>
-<br>
+  </body>
 
 </html>

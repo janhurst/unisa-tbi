@@ -19,10 +19,10 @@ def impute(pecarn_df):
     #print(f"  Removing {total_nans} NaN values from {len(cols_with_nan)} columns")
 
     # Convert into Category
-    pecarn_df['AgeinYears'] = pd.to_numeric(pecarn_df['AgeinYears'])
+    pecarn_df['AgeInMonth'] = pd.to_numeric(pecarn_df['AgeInMonth'])
     pecarn_df['GCSTotal'] = pd.to_numeric(pecarn_df['GCSTotal'])
     for col in list(pecarn_df):
-        if col not in ['AgeinYears']:
+        if col not in ['AgeInMonth']:
             if col not in ['GCSTotal']:
                 pecarn_df[col] = pecarn_df[col].astype('category')
 

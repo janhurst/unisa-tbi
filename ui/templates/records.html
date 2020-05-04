@@ -78,49 +78,37 @@ tr:nth-child(even){background-color: #f2f2f2}
         <h4>Patient List</h4>
 	</fieldset>	
 <div style="overflow-x:auto;">
-<table style="width:50%">
+<table style="width:100%">
   <tr>
+	<th>Patient Id</th>
     <th>GCS</th>
 	<th>Injury Mechanism</th>
 	<th>AMS</th>
-	<th>AMSSleep</th>
-	<th>AMSRepeat</th>
-	<th>AMSOth</th>
-	<th>SFxBasOto</th>
-	<th>SFxPalp</th>
-	<th>SFxBasRhi</th>
-	<th>SFxBasHem</th>
-	<th>HemaSize</th>
-	<th>HemaLoc</th>
-	<th>OSICspine</th>
-	<th>OSIExtremity</th>
-	<th>LOCSeparate</th>
-	<th>NeuroD</th>
-	<th>ClavFace</th>
-	<th>ActNorm</th>
+	<th>Prediction</th>
+	<th>Evolution</th>
     <th>Date Submitted</th>
+	<th></th>
+	<th></th>
   </tr>
   {% for patient in Patients %}
   <tr>
+	<td>{{patient.id}}</td>
     <td>{{patient.gcs}}</td>
     <td>{{patient.highImpactInjSev}}</td>
 	<td>{{patient.ams}}</td>
-	<td>{{patient.amsSleep}}</td>
-	<td>{{patient.amsRepeat}}</td>
-	<td>{{patient.amsOth}}</td>
-	<td>{{patient.sfxBasOto}}</td>
-	<td>{{patient.sfxPalp}}</td>
-	<td>{{patient.sfxBasRhi}}</td>
-	<td>{{patient.sfxBasHem}}</td>
-	<td>{{patient.hemaSize}}</td>
-	<td>{{patient.hemaLoc}}</td>
-	<td>{{patient.osiCspine}}</td>
-	<td>{{patient.osiExtremity}}</td>
-	<td>{{patient.locSeparate}}</td>
-	<td>{{patient.neuroD}}</td>
-	<td>{{patient.clavFace}}</td>
-	<td>{{patient.actNorm}}</td>
+	<td>{{patient.prediction}}</td>
+	<td>{{patient.evolution}}</td>
     <td>{{patient.dateSubmited}}</td>
+	 <td>
+	 <a href="{{url_for('editRecord', id = patient.id )}}">
+           Edit
+       </a>
+	   </td>
+	   <td>
+       <a href="{{url_for('deleteRecord', id = patient.id)}}" style="margin-left: 10px;">
+           Delete
+       </a>
+	   </td>
   </tr>
   {% endfor %}
 </table>

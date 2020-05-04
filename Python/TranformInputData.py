@@ -3,15 +3,14 @@
 
 # In[ ]:
 
-
 import pandas as pd 
 import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
 import Imputation
 
-def transform(imd,selected_feature):
-    disc = imd.to_dict(flat=False)
+def transform(request,selected_feature):
+    disc = request.to_dict(flat=False)
     input_variables = pd.DataFrame(disc)
 
     input_variables['GCSTotal'] = pd.to_numeric(input_variables['GCSTotal'])
@@ -35,4 +34,3 @@ def transform(imd,selected_feature):
     testData = testData[selected_feature]
     print("Transformation Done")
     return testData
-

@@ -26,9 +26,8 @@ def datacleaning(pecarn_data):
     # EMployeID, Certification not important, AgeinMonth,Vomit and GCSGroup is repeated
     Not_Imp_Data = ['EmplType',
                     'Certification',
-                    'AgeInMonth',
+                    'AgeinYears',
                     'AgeTwoPlus',
-                    'Vomit',
                     'GCSGroup']
     ## PosCT = finding 1 to 23, therefore findings are removed
     CT_Data = ['Observed',
