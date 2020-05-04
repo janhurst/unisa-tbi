@@ -30,7 +30,8 @@ def datacleaning(pecarn_data):
                     'Certification',
                     'AgeinYears',
                     'AgeTwoPlus',
-                    'GCSGroup']
+                    'GCSGroup',
+                    'High_impact_InjSev']
     ## PosCT = finding 1 to 23, therefore findings are removed
     CT_Data = ['Observed',
                'EDDisposition',
@@ -80,10 +81,12 @@ def datacleaning(pecarn_data):
                 'IndOth']
 
     # Based on physician's evaluation
-    physician_evalution = ['CTSed',
-                           'Sedated',
-                           'Paralyzed',
-                           'Intubated']
+    #physician_evalution = ['CTSed',
+    #                       'Sedated',
+    #                       'Paralyzed',
+    #                       'Intubated']
+    # Based on physician's evaluation
+    physician_evalution = ['CTSed']
 
     # POSTINFFInal is enough no need to 4 variable which derives class otherwise it would have higher correlation
     High_Correlated = ['DeathTBI',
