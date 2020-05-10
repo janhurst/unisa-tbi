@@ -53,12 +53,16 @@ A "cleaned" version of the PECARN data is also available:
 from data import pecarn
 cleaned_df = pecarn.clean(pecarn.load())
 ```
-The cleaned dataframe is the result of logic being applied on the basis of domain knowledge, as well as removal of columns that store data that is collected during case follow up, and is not available as an input to a predictive model when a patient presents to an emergency department.
+The cleaned dataframe is the result of logic being applied on the basis of domain knowledge, as well as removal of columns that store data that is collected during case follow up, and is not available as an input to a predictive model when a patient presents to an emergency department. 
+
+As well as domain logic, NaN values are also imputed, with a 0 value imputed for boolean-like data, 'most-frequent' imputed for categorical data, and 'mean' imputed for numeric data.
 
 A "preprocessed" version of the data is also available:
 ```
 from data import pecarn
-X, y = pecarn.preprocess(pecarn.clean(pecarn.load()))
+preprocessed_df = pecarn.preprocess(pecarn.clean(pecarn.load()))
 ```
 
-The preprocess module applies further cleaning rules to the dataframe to prepare it for consumption in a machine learning algorithm. Specifically, NaNs are imputed or otherwise removed, and categorical data is one-hot-encoded. The data is returned in an input (X) and class (y) tuple, where `PosIntFinal` is the class label.
+The preprocess module applies further cleaning rules to the dataframe to prepare it for consumption in a machine learning algorithm. Specifically, the datatypes of all variables is converted into `float64`. This can be incorporated into a sklearn pipeline. 
+
+An example training pipeline, including sending results into [Neptune AI](https://neptune.ai) is provided in [src/train/sklearn/train_decisiontreeclassifier.py](https://github.com/janhurst/capstone/blob/master/src/train/sklearn/train_decisiontreeclassifier.py)
