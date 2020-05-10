@@ -7,22 +7,29 @@ import pickle
 from sklearn.model_selection import train_test_split, cross_val_score
 from sklearn.metrics import f1_score, accuracy_score, average_precision_score
 from sklearn.tree import DecisionTreeClassifier
+from sklearn.pipeline import Pipeline
 
 from data import pecarn
 
 if __name__ == "__main__":
 
     # bring the pecarn data in
-    X, y = pecarn.preprocess(pecarn.clean(pecarn.load(fromCsv=True)))
+    df = pecarn.clean(pecarn.load(fromCsv=True))
+    X = df.drop(columns='PosIntFinal')
+    y = pecarn.preprocess(df[['PosIntFinal']])
 
     # configure training and test datasets
     X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=0.75, test_size=0.25, stratify=y, random_state=1234)
 
-    # create the classifier
+    # create the pipeline/classifier
     clf = DecisionTreeClassifier()
+    pipeline = Pipeline(steps=[
+        ('data.pecarn.preprocess', pecarn.make_preprocess_pipeline()),
+        ('decisiontreeclassifier', clf)
+    ])
 
     # save the feature names for use later in prediction
-    clf.features = X[0:0]
+    pipeline.input_features = X[0:0]
 
     # neptune initialization - NEPTUNE_API_TOKEN and NEPTUNE_PROJECT environment variables must be set
     neptune.init()
@@ -34,10 +41,10 @@ if __name__ == "__main__":
         send_hardware_metrics=False) as exp:
         
         # train the classifier
-        clf.fit(X_train, y_train)
+        pipeline.fit(X_train, y_train)
 
         # calculate scores on train set
-        y_train_pred = clf.predict(X_train)
+        y_train_pred = pipeline.predict(X_train)
         train_scores = {
             'accuracy': accuracy_score(y_train, y_train_pred),
             'f1': f1_score(y_train, y_train_pred),
@@ -45,8 +52,8 @@ if __name__ == "__main__":
             'avg_precision': average_precision_score(y_train, y_train_pred)
         }
 
-        # calculate cross validation scores on test set
-        y_pred = clf.predict(X_test)
+        # calculate scores on test set
+        y_pred = pipeline.predict(X_test)
         test_scores = {
             'accuracy': accuracy_score(y_test, y_pred),
             'f1': f1_score(y_test, y_pred),
@@ -63,6 +70,6 @@ if __name__ == "__main__":
         # log the model
         pickle_file = 'sklearn.DecisionTreeClassifier.pkl'
         with open(pickle_file, "wb") as f:
-            pickle.dump(clf, f)
+            pickle.dump(pipeline, f)
         exp.log_artifact(pickle_file)
         os.remove(pickle_file)       

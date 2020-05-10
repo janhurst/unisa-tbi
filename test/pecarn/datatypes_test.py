@@ -17,8 +17,9 @@ class DataTypesTestCase(unittest.TestCase):
 
     numeric_cols = ['AgeInMonth','AgeinYears','GCSTotal']
 
-    def setUp(self):
-        self.df = pecarn.load(fromCsv=True)
+    @classmethod
+    def setUpClass(cls):
+        cls.df = pecarn.load(fromCsv=True)
 
     def test_Booleans(self):
         self.boolean_cols.sort()

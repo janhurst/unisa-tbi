@@ -8,13 +8,15 @@ from data import pecarn
 
 class LoadTestCase(unittest.TestCase):
 
+    @classmethod
+    def setUpClass(cls):
+        cls.df = pecarn.load(fromCsv=True)
+
     def test_fromCsv(self):
-        df = pecarn.load(fromCsv=True)
-        self.assertIsInstance(df, pd.DataFrame)
+        self.assertIsInstance(self.df, pd.DataFrame)
 
     def test_fromPickle(self):
-        df = pecarn.load(fromCsv=False)
-        self.assertIsInstance(df, pd.DataFrame)
+        self.assertIsInstance(self.df, pd.DataFrame)
 
 if __name__ == '__main__':
     unittest.main()

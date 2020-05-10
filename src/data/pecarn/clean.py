@@ -4,8 +4,9 @@ This module provides cleaning operations over the original PECARN TBI dataset.
 The cleaning logic applied is:
  - remove columns that are not known when a patient presents
  - remove columns that don't directly relate to the diagnosis
- - rename columns to make them easier to read
- - relabel the categories to make them more meaningful 
+ - fill missing GCS values when possible
+ - remove some records with small numbers of NaN values
+ - set better categories for some NaN values
 """
 import pandas as pd
 import logging
@@ -34,8 +35,13 @@ def clean(df):
     df = _clean_LOCSeparate(df)
     df = _clean_Amnesia_verb(df)
 
-    # finally rename
-    #df = to_new_names(df)
+    # remove the NA category, as it is not very helpful
+    df = _remove_NA_category(df)
+
+    # deal with NaNs
+    df = _impute_boolean_nans(df)
+    df = _impute_categorical_nans(df)
+    df = _impute_numeric_nans(df)
 
     return df
 
@@ -45,6 +51,7 @@ def _drop_columns(df):
 
     # duplicate or implied by other columns
     drop_cols.append('AgeinYears')  
+    drop_cols.append('AgeTwoPlus')  
     drop_cols.append('High_impact_InjSev')
 
     # variables that are not relevant
@@ -102,63 +109,58 @@ def _clean_Gender(df):
 def _clean_InjuryMech(df):
     """ Set the InjuryMech NaN values to 90 Other """
     logger.debug(f"InjuryMech setting {df['InjuryMech'].isna().sum()} NaN values to Other (90)")
-    df.loc[df['InjuryMech'].isna(), 'InjuryMech'] = 'Other'
+    df.loc[df['InjuryMech'].isna(), 'InjuryMech'] = 90
     return df
 
 def _clean_LOCSeparate(df):
     """ Set the LOCSeparate NaN values to No """
-    logger.debug(f"LOCSeparate setting {df['LOCSeparate'].isna().sum()} NaN values to No")
-    df.loc[df['LOCSeparate'].isna(), 'LOCSeparate'] = 'No'
+    logger.debug(f"LOCSeparate setting {df['LOCSeparate'].isna().sum()} NaN values to No (0)")
+    df.loc[df['LOCSeparate'].isna(), 'LOCSeparate'] = 0
     return df
 
 def _clean_Amnesia_verb(df):
     """ Set the Amnesia_verb NaN values to No """
-    logger.debug(f"Amnesia_verb setting {df['Amnesia_verb'].isna().sum()} NaN values to No")
-    df.loc[df['Amnesia_verb'].isna(), 'Amnesia_verb'] = 'No'
+    logger.debug(f"Amnesia_verb setting {df['Amnesia_verb'].isna().sum()} NaN values to No (0)")
+    df.loc[df['Amnesia_verb'].isna(), 'Amnesia_verb'] = 0
     return df
 
-def to_new_names(df):
-    """ Rename columns to new names to allow them to be more meaningful """
-    for old_name, new_name in _name_map.items():
-        df.rename(columns={old_name: new_name}, inplace=True)
+def _remove_NA_category(df):
+    """ Remove the NA (92) category """
+    NA = 92
+    category_with_na = [col for col in df.select_dtypes(include='category') if NA in df[col].cat.categories.values]
+
+    for col in category_with_na:
+        # remove the NA/92 category, which will change NA values to NaNs
+        df[col] = df[col].cat.remove_categories([NA])
+
+        # if there are now only 2 categories, convert to boolean
+        if len(df[col].cat.categories) == 2:
+            df[col] = df[col].astype('boolean')
+    
+    return df
+ 
+def _impute_boolean_nans(df):
+    """ Impute boolean NaNs to False """
+    for col in df.select_dtypes(include='boolean'):
+        if df[col].isna().sum() > 0:
+            logger.debug(f"{col} setting {df[col].isna().sum()} NaN values to 0")
+            df.loc[df[col].isna(), col] = 0
     return df
 
-def to_original_names(df):
-    """ Rename columns back to original names """
-    for old_name, new_name in _name_map.items():
-        df.rename(columns={new_name: old_name}, inplace=True)
+def _impute_categorical_nans(df):
+    """ Impute categorical NaNs to most frequent value """
+    # impute most frequent value for categories that still have NaN values
+    for col in df.select_dtypes(include='category'):
+        if df[col].isna().sum() > 0:
+            logger.debug(f"{col} setting {df[col].isna().sum()} NaN values to {df[col].value_counts().index[0]}")
+            df.loc[df[col].isna(), col] = df[col].value_counts().index[0]
+
     return df
 
-""" Name Maps
-
-The map is used to allow to swap between old and new names. The names are changed by
-expanding to full words and using CamelCase
-"""
-_name_map = {
-    'Amnesia_verb': 'Amnesia',
-    'LOCSeparate': 'LossOfConsciousness',
-    'LocLen': 'LossOfConsciousnessDuration',
-    'Seiz': 'Seizure',
-    'SeizOccur': 'SeizureOccurence',
-    'SeizLen': 'SeizureLength',
-    'ActNorm': 'ActingNormal',
-    'HA_verb': 'HeadAche',
-    'HASeverity': 'HeadAcheSeverity',
-    'HAStart': 'HeadAcheStart',
-    'VomitNbr': 'VomitNumber',
-    'AMSOth': 'AMSOther',
-    'Hema': 'Hematoma',
-    'HemaLoc': 'HematomaLocation',
-    'HemaSize': 'HematomaSize',
-    'Clav': 'ClavicalTrauma',
-    'ClavFace': 'ClavicalTraumaFace',
-    'ClavNeck': 'ClavicalTraumaNeck',
-    'ClavFro': 'ClavicalTraumaScalpFrontal',
-    'ClavOcc': 'ClavicalTraumaScalpOccipital',
-    'ClavPar': 'ClavicalTraumaScalpParietal',
-    'ClavTem': 'ClavicalTraumaScalpTemporal',
-
-    # TODO consider other renames?
-    'AgeInMonths': 'Age',
-    'InjuryMech': 'InjuryMechanism',
-}
+def _impute_numeric_nans(df):
+    """ Impute numeric NaNs to the mean """
+    for col in df.select_dtypes(include='int64'):
+        if df[col].isna().sum() > 0:
+            logger.debug(f"{col} setting {df[col].isna().sum()} NaN values to {df[col].mean()}")
+            df.loc[df[col].isna(), col] = df[col].mean()
+    return df
