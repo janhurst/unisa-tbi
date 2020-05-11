@@ -1,0 +1,12 @@
+name: tbi-ui
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python
+  - pandas
+  - numpy
+  - scikit-learn
+  - flask
+  - flask-wtf
+  - neptune-client
