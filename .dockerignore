@@ -1,0 +1,5 @@
+# ignore pycache, gitignore etc
+**/__pycache__/*
+**/.gitignore
+**/README.md
+**/artifacts/*
