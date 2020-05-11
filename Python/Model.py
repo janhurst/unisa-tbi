@@ -75,7 +75,7 @@ def getModel(pecarn_df):
     features['Feature'] = features.index
     selected_features = features[features.Importance >= thresh]
     #print(selected_features.sort_values(by='Importance', ascending=False))
-    return selected_features['Feature'].tolist(),selection_model,X_train,y_train
+    return selected_features['Feature'].tolist(),selection_model
 
 
 

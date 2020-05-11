@@ -3,7 +3,6 @@ TBI PUD 10-08-2013*
 PECARN_TBI.pkl
 
 # pickled model files
-*.pkl
 
 # Python .gitignore from https://github.com/github/gitignore/blob/master/Python.gitignore
 

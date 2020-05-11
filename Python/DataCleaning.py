@@ -97,5 +97,8 @@ def datacleaning(pecarn_data):
     print("Data Cleaning Done")
     to_drop = Not_Imp_Data + CT_Data + CT_Order + physician_evalution + High_Correlated
     pecarn_df.drop(to_drop, inplace=True, axis=1)
+    # iterating the columns 
+    #for col in pecarn_df.columns: 
+    #    print(col) 
     return pecarn_df
 

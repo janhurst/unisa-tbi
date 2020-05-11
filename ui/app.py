@@ -3,19 +3,17 @@ import pickle
 import pandas as pd
 import numpy as np
 import sys
-
+import matplotlib.pyplot as plt
 
 sys.path.append('../Python/')
 import TranformInputData
 import crudDB
 
 # Use pickle to load in the pre-trained model
-with open(f'sklearn.model.pkl', 'rb') as f:
+with open(f'model/sklearn.model.pkl', 'rb') as f:
     clf = pickle.load(f)
     selection_model = clf
     selected_feature = clf.features
-    xTrain = clf.xTrain
-    yTrain = clf.yTrain
 
 # Initialise the Flask app
 app = flask.Flask(__name__, template_folder='templates')
@@ -28,6 +26,7 @@ def main():
         return (flask.render_template('main.html'))
 
     if flask.request.method == 'POST':
+        #print(flask.request.form)
         testData = TranformInputData.transform(flask.request.form,selected_feature)
         #Get the model's prediction
         prediction = selection_model.predict(testData.to_numpy())[0]
@@ -38,35 +37,39 @@ def main():
         else:
             result = "CT Not Required"
         crudDB.newPatient(flask.request.form,pred)
+        
         return flask.render_template('main.html',
-                                     result=result,
+                                     result=result
                                      )
 
-# Set up the main route
+
 @app.route('/dashboard', methods=['GET', 'POST'])
 def dashboard():
     return flask.render_template('dashboard.html')
 
-# Set up the main route
-@app.route('/records', methods=['GET', 'POST'])
-def record():
-    patients = crudDB.showPatients()
-    return flask.render_template('records.html', Patients = patients)
+@app.route('/records', methods=['GET'], defaults={"page_num": 1}) 
+@app.route('/records/<int:page_num>', methods=['GET'])
+def recordPage(page_num):
+    page = crudDB.totalPages()
+    patients =  crudDB.patientdBypage(page_num)
+    return flask.render_template("records.html", page_num=page_num, Patients=patients, page=page)
 
 @app.route("/records/<int:id>/edit/", methods = ['GET', 'POST'])
 def editRecord(id):
     if flask.request.method == 'GET':
         patient = crudDB.getPatientById(int(id))
-        return flask.render_template('editRecord.html', id=id, prediction=patient.prediction)
+        return flask.render_template('editRecord.html', id=id, Prediction=patient.Prediction)
 
     if flask.request.method == 'POST':
         crudDB.editPatient(flask.request.form.to_dict(), int(id))
-        patients = crudDB.showPatients()
-        return flask.render_template('records.html', Patients=patients)
+        page = crudDB.totalPages()
+        patients =  crudDB.patientdBypage(1)
+        return flask.render_template("records.html", Patients=patients, page=page, page_num=1)
 
 
 @app.route("/records/<int:id>/delete/", methods = ['GET', 'POST'])
 def deleteRecord(id):
     crudDB.deletePatient(int(id))
-    patients = crudDB.showPatients()
-    return flask.render_template('records.html', Patients=patients)
+    page = crudDB.totalPages()
+    patients =  crudDB.patientdBypage(1)
+    return flask.render_template("records.html", Patients=patients, page=page, page_num=1)

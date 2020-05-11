@@ -3,6 +3,7 @@
 
 # In[ ]:
 
+
 import pandas as pd 
 import numpy as np
 import seaborn as sns
@@ -32,5 +33,7 @@ def transform(request,selected_feature):
 
     testData = pd.concat([subset1, subset2], axis=1)
     testData = testData[selected_feature]
+    #print(testData)
     print("Transformation Done")
     return testData
+

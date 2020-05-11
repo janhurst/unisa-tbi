@@ -81,11 +81,11 @@ tr:nth-child(even){background-color: #f2f2f2}
 <table style="width:100%">
   <tr>
 	<th>Patient Id</th>
-    <th>GCS</th>
+    <th>Age</th>
 	<th>Injury Mechanism</th>
-	<th>AMS</th>
+	<th>GCS</th>
 	<th>Prediction</th>
-	<th>Evolution</th>
+	<th>Evaluation</th>
     <th>Date Submitted</th>
 	<th></th>
 	<th></th>
@@ -93,12 +93,12 @@ tr:nth-child(even){background-color: #f2f2f2}
   {% for patient in Patients %}
   <tr>
 	<td>{{patient.id}}</td>
-    <td>{{patient.gcs}}</td>
-    <td>{{patient.highImpactInjSev}}</td>
-	<td>{{patient.ams}}</td>
-	<td>{{patient.prediction}}</td>
-	<td>{{patient.evolution}}</td>
-    <td>{{patient.dateSubmited}}</td>
+  <td>{{patient.AgeInMonth}}</td>
+  <td>{{patient.InjuryMech}}</td>
+	<td>{{patient.GCSTotal}}</td>
+	<td>{% if patient.Prediction == 1 %} Yes {% else %} No {% endif %}</td>
+	<td>{% if patient.Evaluation == 1 %} Yes {% else %} No {% endif %}</td>
+  <td>{{patient.DateSubmited}}</td>
 	 <td>
 	 <a href="{{url_for('editRecord', id = patient.id )}}">
            Edit
@@ -113,6 +113,14 @@ tr:nth-child(even){background-color: #f2f2f2}
   {% endfor %}
 </table>
 </div>
+{% for p in page %}
+    {% if p %}
+        <a href="{{url_for('recordPage', page_num = p)}}">{{ p }}</a>
+    {% else %}
+      ...
+    {% endif %}
+{% endfor %}
+
   </body>
 
 </form>
