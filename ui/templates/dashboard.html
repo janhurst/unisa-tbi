@@ -50,17 +50,18 @@ form {
 </head>
 
 <div class="topnav">
-  <a class="active" href="/">New Request</a>
+  <a href="/">New Request</a>
   <a href="/records">Record</a>
-  <a href="/dashboard">Dashboard</a>
+  <a class="active" href="/dashboard">Dashboard</a>
 </div>
 
 
 
 <form action="{{ url_for('main') }}" method="POST">
     <fieldset>
-        <h4>There should be a dashboard here: start working on it</h4>
+        <h4>Put your dashboard here</h4>
     </fieldset>
+	{{dashboard}}
 </form>
 <br>
 

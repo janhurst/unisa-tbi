@@ -1,62 +1,6 @@
 <!doctype html>
 <html>
-<style>
-form {
-    margin: auto;
-    width: 75%;
-}
 
-.result {
-    margin: auto;
-    width: 35%;
-    border: 1px solid #ccc;
-}
-/* Add a black background color to the top navigation */
-.topnav {
-  background-color: #333;
-  overflow: hidden;
-}
-
-/* Style the links inside the navigation bar */
-.topnav a {
-  float: left;
-  color: #f2f2f2;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  font-size: 17px;
-}
-
-/* Change the color of links on hover */
-.topnav a:hover {
-  background-color: #ddd;
-  color: black;
-}
-
-/* Add a color to the active/current link */
-.topnav a.active {
-  background-color: #4CAF50;
-  color: white;
-}
-
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
-  width: 100%;
-  border: 1px solid #ddd;
-}
-
-th, td {
-  text-align: left;
-  padding: 8px;
-}
-td
-{
-    padding:0 45px;
-}
-tr:nth-child(even){background-color: #f2f2f2}
-
-</style>
 <head>
     <title>SA Pathology</title>
 	 <meta charset="utf-8">
@@ -64,40 +8,53 @@ tr:nth-child(even){background-color: #f2f2f2}
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel = "stylesheet" type = "text/css" href = "{{ url_for('static',filename='styleR.css') }}" />
 </head>
 
 <div class="topnav">
-  <a class="active" href="/">New Request</a>
-  <a href="/records">Record</a>
+  <a href="/">New Request</a>
+  <a class="active" href="/records">Record</a>
   <a href="/dashboard">Dashboard</a>
 </div>
 
 
 <form action="{{ url_for('main') }}" method="POST">
     <fieldset>
-        <h4>Patient List</h4>
+        <h2>Patient List</h2>
 	</fieldset>	
 <div style="overflow-x:auto;">
 <table style="width:100%">
   <tr>
 	<th>Patient Id</th>
-    <th>Age</th>
+  <th>GCS Total</th>
 	<th>Injury Mechanism</th>
-	<th>GCS</th>
 	<th>Prediction</th>
 	<th>Evaluation</th>
-    <th>Date Submitted</th>
+  <th>Date Submitted</th>
 	<th></th>
 	<th></th>
   </tr>
   {% for patient in Patients %}
   <tr>
 	<td>{{patient.id}}</td>
-  <td>{{patient.AgeInMonth}}</td>
-  <td>{{patient.InjuryMech}}</td>
-	<td>{{patient.GCSTotal}}</td>
-	<td>{% if patient.Prediction == 1 %} Yes {% else %} No {% endif %}</td>
-	<td>{% if patient.Evaluation == 1 %} Yes {% else %} No {% endif %}</td>
+  <td>{{patient.GCSTotal}}</td>
+  <td>{% if patient.InjuryMech == 1 %} Occupant in motor vehicle collision(MVC)
+       {% elif patient.InjuryMech == 2 %} Pedestrian struck by moving vehicle
+       {% elif patient.InjuryMech == 3 %} Bike rider struck by automobile
+       {% elif patient.InjuryMech ==  4 %} Bike collision or fall from bike while riding
+       {% elif patient.InjuryMech ==  5 %} Other wheeled transport crash
+       {% elif patient.InjuryMech ==  6 %} Fall to ground from standing/walking/running
+       {% elif patient.InjuryMech ==  7 %} Walked or ran into stationary object
+       {% elif patient.InjuryMech ==  8 %} Fall from an elevation
+       {% elif patient.InjuryMech ==  9 %} Fall down stairs
+       {% elif patient.InjuryMech ==  10 %} Sports
+       {% elif patient.InjuryMech ==  11 %} Assault
+       {% elif patient.InjuryMech ==  12 %} Object Struck head - accidental
+       {% else %} Other Mechanism
+       {% endif %}
+  </td>
+  <td>{% if patient.Prediction == 1 %} Yes {% else %} No {% endif %}</td>
+  <td>{% if patient.Evaluation == 1 %} Yes {% else %} No {% endif %}</td>
   <td>{{patient.DateSubmited}}</td>
 	 <td>
 	 <a href="{{url_for('editRecord', id = patient.id )}}">
@@ -120,7 +77,6 @@ tr:nth-child(even){background-color: #f2f2f2}
       ...
     {% endif %}
 {% endfor %}
-
   </body>
 
 </form>

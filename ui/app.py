@@ -5,7 +5,7 @@ import numpy as np
 import sys
 import matplotlib.pyplot as plt
 
-sys.path.append('../Python/')
+sys.path.append('Python/')
 import TranformInputData
 import crudDB
 
@@ -16,7 +16,7 @@ with open(f'model/sklearn.model.pkl', 'rb') as f:
     selected_feature = clf.features
 
 # Initialise the Flask app
-app = flask.Flask(__name__, template_folder='templates')
+app = flask.Flask(__name__, template_folder='templates', static_folder='static')
 
 # Set up the main route
 @app.route('/', methods=['GET', 'POST'])
