@@ -1,57 +1,18 @@
 <!doctype html>
 <html>
-<style>
-form {
-    margin: auto;
-    width: 35%;
-}
-
-.result {
-    margin: auto;
-    width: 35%;
-    border: 1px solid #ccc;
-}
-/* Add a black background color to the top navigation */
-.topnav {
-  background-color: #333;
-  overflow: hidden;
-}
-
-/* Style the links inside the navigation bar */
-.topnav a {
-  float: left;
-  color: #f2f2f2;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  font-size: 17px;
-}
-
-/* Change the color of links on hover */
-.topnav a:hover {
-  background-color: #ddd;
-  color: black;
-}
-
-/* Add a color to the active/current link */
-.topnav a.active {
-  background-color: #4CAF50;
-  color: white;
-}
-</style>
-
 <head>
 	<title>SA Pathology</title>
 	<meta charset="utf-8">
   	<meta name="viewport" content="width=device-width, initial-scale=1">
   	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>  	
   	<link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
  	<link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type = "text/css" href="{{ url_for('static', filename='style.css') }}">   
+    <link rel = "stylesheet" type = "text/css" href = "{{ url_for('static',filename='navStyle.css') }}" />
+    <link rel="stylesheet" type = "text/css" href="{{ url_for('static', filename='mainStyle.css') }}">   
 
 </head>
 
@@ -69,11 +30,11 @@ form {
 		<br/>
 </div>
 {% else %}
-<H1> Hi, do you need an opinion about whether CT Scan should be performed or not?</H1>
+<H1>Decision Support Tool for Suspected Traumatic Brain Injuries</H1>
 <form action="{{ url_for('main') }}" method="POST">
 	<fieldset>
 		
-        <h2>Please enter all below information to get the result:</h2>
+        <h2>Please enter the patient information below:</h2>
 		<br> Gender of Patient 
 		<select id="Gender" name="Gender" required>
 				<option value="">Select</option>
@@ -573,7 +534,7 @@ form {
  {% endif %}
 </form>
 <br>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
-<script src="{{ url_for('static', filename='j.js') }}"></script>
+ 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
+	<script src="{{ url_for('static', filename='j.js') }}"></script>
 </html>

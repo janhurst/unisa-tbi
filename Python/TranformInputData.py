@@ -13,7 +13,6 @@ import Imputation
 def transform(request,selected_feature):
     disc = request.to_dict(flat=False)
     input_variables = pd.DataFrame(disc)
-
     input_variables['GCSTotal'] = pd.to_numeric(input_variables['GCSTotal'])
     for col in list(input_variables):
         if col not in ['GCSTotal']:

@@ -133,3 +133,8 @@ def getPatientById(patientId):
     patient = session.query(Patient).filter_by(id=patientId).one()
     return patient
 
+def searchPatientById(patientId):
+    patient = session.query(Patient).filter_by(id=patientId)
+    return patient
+
+

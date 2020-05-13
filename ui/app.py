@@ -47,11 +47,18 @@ def main():
 def dashboard():
     return flask.render_template('dashboard.html')
 
-@app.route('/records', methods=['GET'], defaults={"page_num": 1}) 
-@app.route('/records/<int:page_num>', methods=['GET'])
+@app.route('/records', methods=['GET', 'POST'], defaults={"page_num": 1}) 
+@app.route('/records/<int:page_num>', methods=['GET', 'POST'])
 def recordPage(page_num):
     page = crudDB.totalPages()
-    patients =  crudDB.patientdBypage(page_num)
+    search = flask.request.form.get("search",None)
+    button = flask.request.form.get("button",None)
+    if search !=  None and button == "Submit":
+        page = None
+        patients = crudDB.searchPatientById(search)
+    else:
+        page = crudDB.totalPages()
+        patients =  crudDB.patientdBypage(page_num)
     return flask.render_template("records.html", page_num=page_num, Patients=patients, page=page)
 
 @app.route("/records/<int:id>/edit/", methods = ['GET', 'POST'])

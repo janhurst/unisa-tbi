@@ -2,13 +2,17 @@
 <html>
 
 <head>
-    <title>SA Pathology</title>
-	 <meta charset="utf-8">
+  <title>SA Pathology</title>
+	<meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-  <link rel = "stylesheet" type = "text/css" href = "{{ url_for('static',filename='styleR.css') }}" />
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
+  <script src="{{ url_for('static', filename='j.js') }}"></script>
+  <link rel = "stylesheet" type = "text/css" href = "{{ url_for('static',filename='navStyle.css') }}" />
+  <link rel = "stylesheet" type = "text/css" href = "{{ url_for('static',filename='recordStyle.css') }}" />
 </head>
 
 <div class="topnav">
@@ -18,10 +22,15 @@
 </div>
 
 
-<form action="{{ url_for('main') }}" method="POST">
+<form action="{{url_for('recordPage', page_num = 1)}}" method="POST">
+  
     <fieldset>
         <h2>Patient List</h2>
-	</fieldset>	
+    </fieldset> 
+      <input type="number" name="search" id="searchInput" placeholder="Search by Patient Id">
+      <input type="submit" name="button" value="Submit">
+      <input type="submit" name="button" value="Clear">
+
 <div style="overflow-x:auto;">
 <table style="width:100%">
   <tr>
@@ -70,13 +79,15 @@
   {% endfor %}
 </table>
 </div>
-{% for p in page %}
-    {% if p %}
-        <a href="{{url_for('recordPage', page_num = p)}}">{{ p }}</a>
-    {% else %}
-      ...
-    {% endif %}
-{% endfor %}
+{% if page %}
+  {% for p in page %}
+      {% if p %}
+          <a href="{{url_for('recordPage', page_num = p)}}">{{ p }}</a>
+      {% else %}
+        ...
+      {% endif %}
+  {% endfor %}
+{% endif %}
   </body>
 
 </form>
