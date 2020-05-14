@@ -53,7 +53,7 @@ def recordPage(page_num):
     page = crudDB.totalPages()
     search = flask.request.form.get("search",None)
     button = flask.request.form.get("button",None)
-    if search !=  None and button == "Submit":
+    if search !=  None and button == "Search":
         page = None
         patients = crudDB.searchPatientById(search)
     else:
