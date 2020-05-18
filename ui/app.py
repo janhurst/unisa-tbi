@@ -5,7 +5,7 @@ import numpy as np
 import sys
 import matplotlib.pyplot as plt
 
-sys.path.append('Python/')
+sys.path.append('../Python/')
 import TranformInputData
 import crudDB
 
