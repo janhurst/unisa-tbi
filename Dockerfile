@@ -7,6 +7,7 @@ COPY ui/ ./
 
 # copy Python data package source files
 COPY ./src/data/ ./data/
+COPY ./src/ui ./ui/
 
 # install the requirements
 RUN pip install -r requirements.txt

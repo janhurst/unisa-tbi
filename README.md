@@ -66,3 +66,15 @@ preprocessed_df = pecarn.preprocess(pecarn.clean(pecarn.load()))
 The preprocess module applies further cleaning rules to the dataframe to prepare it for consumption in a machine learning algorithm. Specifically, the datatypes of all variables is converted into `float64`. This can be incorporated into a sklearn pipeline. 
 
 An example training pipeline, including sending results into [Neptune AI](https://neptune.ai) is provided in [src/train/sklearn/train_decisiontreeclassifier.py](https://github.com/janhurst/capstone/blob/master/src/train/sklearn/train_decisiontreeclassifier.py)
+
+## Docker Image
+A Docker image providing a web user interface to assess patients can be built using the provided Dockerfile:
+```
+docker built -t <repo>/<image>:<tag> -f .\Dockerfile
+```
+
+An image for the master branch has been pushed to [Docker Hub](https://hub.docker.com/repository/docker/janhurst/unisa-tbi) with the tag ```janhurst/unisa-tbi:latest```. This image can be run locally and can be linked to a Neptune AI repository via environment variables:
+```
+docker run -p 8000:80 -e NEPTUNE_PROJECT="unisa-tbi/unisa-tbi" -e NEPTUNE_API_TOKEN=<your_token> -t janhurst/unisa-tbi:latest
+```
+The Docker image is temporarily deployed to [https://unisa-tbi.azurewebsites.net](https://unisa-tbi.azurewebsites.net).
