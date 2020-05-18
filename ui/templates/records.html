@@ -10,9 +10,9 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
-  <script src="{{ url_for('static', filename='j.js') }}"></script>
-  <link rel = "stylesheet" type = "text/css" href = "{{ url_for('static',filename='navStyle.css') }}" />
-  <link rel = "stylesheet" type = "text/css" href = "{{ url_for('static',filename='recordStyle.css') }}" />
+  <script src="{{ url_for('static', filename='main.js') }}"></script>
+  <link rel = "stylesheet" type = "text/css" href = "{{ url_for('static',filename='nav.css') }}" />
+  <link rel = "stylesheet" type = "text/css" href = "{{ url_for('static',filename='record.css') }}" />
 </head>
 
 <div class="topnav">
@@ -63,7 +63,7 @@
        {% endif %}
   </td>
   <td>{% if patient.Prediction == 1 %} Yes {% else %} No {% endif %}</td>
-  <td>{% if patient.Evaluation == 1 %} Yes {% else %} No {% endif %}</td>
+  <td>{% if patient.Evaluation == 1 %} Yes {% elif patient.Evaluation == 0 %} No {% else %} - {% endif %}</td>
   <td>{{patient.DateSubmited}}</td>
 	 <td>
 	 <a href="{{url_for('editRecord', id = patient.id )}}">

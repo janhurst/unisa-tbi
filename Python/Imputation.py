@@ -6,7 +6,7 @@ import pandas as pd
 import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
-import DataCleaning
+from Python import DataCleaning
 from sklearn.impute import SimpleImputer
 
 def impute(pecarn_df):

@@ -69,7 +69,7 @@ def getModel(pecarn_df):
     # plot graph of feature importances for better visualization
     feat_importances = pd.Series(model.feature_importances_, index=X.columns)
     feat_importances.nlargest(n).plot(kind='barh')
-    # plt.show()
+    plt.show()
 
     features = pd.DataFrame(model.feature_importances_, columns=['Importance'], index=X.columns)
     features['Feature'] = features.index
