@@ -1,12 +1,13 @@
-# this script builds a simple decision tree classifier
+# this script builds an xgboost classifier with features selected from their importance
 import os
 import pandas as pd
 import neptune 
 import pickle
 
-from sklearn.model_selection import train_test_split, cross_val_score
+from sklearn.model_selection import train_test_split
+from sklearn.feature_selection import SelectFromModel
 from sklearn.metrics import f1_score, accuracy_score, average_precision_score
-from sklearn.tree import DecisionTreeClassifier
+from xgboost import XGBClassifier
 from sklearn.pipeline import Pipeline
 
 from data import pecarn
@@ -21,11 +22,21 @@ if __name__ == "__main__":
     # configure training and test datasets
     X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=0.75, test_size=0.25, stratify=y, random_state=1234)
 
-    # create the pipeline/classifier
-    clf = DecisionTreeClassifier()
+    # this value was determined by running a default XGBClassifier and getting the median feature_importance
+    # of the non zero feature importance values. it is probably not omptimal and just demonstrating! 
+    feature_threshold = 0.010823
+
+    # the selector will use an XGBClassifier
+    feature_selector = SelectFromModel(XGBClassifier(), threshold=feature_threshold)
+
+    # the classifier that will be trained on the selected features
+    clf = XGBClassifier()
+
+    # create the pipeline
     pipeline = Pipeline(steps=[
         ('data.pecarn.preprocess', pecarn.make_preprocess_pipeline()),
-        ('decisiontreeclassifier', clf)
+        ('feature_selection', feature_selector),
+        ('xgboost', clf)
     ])
 
     # save the feature names for use later in prediction
@@ -35,7 +46,7 @@ if __name__ == "__main__":
     neptune.init()
 
     # create a neptune experiment to log to
-    with neptune.create_experiment(name='sklearn.DecisionTreeClassifier',
+    with neptune.create_experiment(name='xgboost.XGBClassifier_selected_features',
         params=clf.get_params(),
         upload_source_files=[__file__,'src/data/pecarn/*.py'],
         send_hardware_metrics=False) as exp:
@@ -68,7 +79,7 @@ if __name__ == "__main__":
             exp.send_metric('test_' + metric_name, score)
 
         # log the model
-        pickle_file = 'sklearn.DecisionTreeClassifier.pkl'
+        pickle_file = exp.name + '.pkl'
         with open(pickle_file, "wb") as f:
             pickle.dump(pipeline, f)
         exp.log_artifact(pickle_file)

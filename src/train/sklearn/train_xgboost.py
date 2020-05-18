@@ -1,4 +1,4 @@
-# this script builds a simple decision tree classifier
+# this script builds an xgboost classifier
 import os
 import pandas as pd
 import neptune 
