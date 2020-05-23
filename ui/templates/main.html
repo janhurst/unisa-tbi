@@ -74,7 +74,8 @@ form {
 <form action="{{ url_for('main') }}" method="POST">
 	<fieldset>
 		
-        	<h2>Please enter all below information to get the result:</h2>
+        	<h2>Please enter the patient information below:</h2>
+		<div id= "panel2" class="container" >	
 		<br> Gender of Patient 
 		<select id="Gender" name="Gender" required>
 				<option value="">Select</option>
@@ -112,8 +113,9 @@ form {
 				<option value="0">No</option>
 				<option value="1">Yes</option>
 		</select>
+	</div>
 		<br>History: Injury Mechanism<br>
-		<select id="InjuryMech" name="InjuryMech" onchange='checkInjuryMech(this.value);' required>
+		<select id="InjuryMech" name="InjuryMech" required>
 				<option value="">Select</option>
 				<option value="1">Occupant in motor vehicle collision(MVC)</option>
 				<option value="2">Pedestrian struck by moving vehicle</option>
@@ -130,31 +132,58 @@ form {
 				<option value="90">Other Mechanism</option>
 				<br>
 		</select>
-		<input type="text" name="InjuryMech" id="InjuryMech1" style='display:none;'/>
 		<br><br>
-		 Glasgow Coma Scale - Total:
-        	<input id="myCol" name="GCSTotal" type="number" required>
-		
-        	<br>
-        	<br> 
+		<div id= "panel2" class="container" >
+		<br> 
+		Some information regarding GCS components:<br>
+		Eye
+		<select id="GCSEye" name="GCSEye" required>
+					<option value="">Select</option>
+					<option value="1">None</option>
+					<option value="2">Pain</option>
+					<option value="3">Verbal</option>
+					<option value="4">Spontaneous</option>
+				</select>
+		Verbal
+		<select id="GCSVerbal" name="GCSVerbal" required>
+					<option value="">Select</option>
+					<option value="1">None</option>
+					<option value="2">Incomprehensible sounds (moans)</option>
+					<option value="3">Inappropriate words (cries to pain)</option>
+					<option value="4">Confused (irritable/cries)</option>
+					<option value="5">Oriented (coos/babbles)</option>
+				</select>
+		Motor
+		<select id="GCSMotor" name="GCSMotor" required>
+					<option value="">Select</option>
+					<option value="1">None</option>
+					<option value="2">Abnormal extension posturing</option>
+					<option value="3">Abnormal flexure posturing</option>
+					<option value="4">Withdraws to pain</option>
+					<option value="5">Localizes pain (withdraws to touch</option>
+					<option value="6">Follow commands (spontaneous movement)</option>
+				</select>
+        	</div>
+		<br> 
 		<div id= "panel2" class="container" >
         		<br> 
-			
-			<div  id= "myCol" class="pane-heading"><H4 border-style: "solid";> Other signs of altered mental status</H4></div>
-			<br>Severity of injury mechanism:
+		
+			 Other signs of altered mental status<br>
+
+			<br>Severity of injury mechanism
         			<select id="AMSSleep_1" name="AMSSleep_1" required>
 					<option value="">Select</option>
 					<option value="0">No</option>
 					<option value="1">Yes</option>
 				</select>
-				<br>Repetitive questions:<br>
+				<br>Repetitive questions<br>
 				<select id="AMSRepeat_1" name="AMSRepeat_1" required>
 					<option value="">Select</option>
 					<option value="0">No</option>
 					<option value="1">Yes</option>
 				</select>	
 		
-				<br>Other:
+				<br>Other
 				<select id="AMSOth_1" name="AMSOth_1" required>
 					<option value="">Select</option>
 					<option value="0">No</option>
@@ -165,15 +194,14 @@ form {
       
 			<br>
 		
-    		
-		<div class="form-group">
+    		<div id= "panel2" class="container" >
     			<label for="Seiz"><H4>Post-traumatic seizure?</H4></label>
     				<select id="Seiz" name="Seiz">
 					<option value="">Select</option>
           				<option value="0">No</option>
           				<option value="1">Yes</option>
     				</select>
-  		</div>
+  		
   		<div id="otherFieldDiv">
     			<label for="SeizOccur"><H4>When did the post-traumatic seizure occur?</H4></label>
     				<select  id="SeizOccur" name="SeizOccur" >
@@ -194,9 +222,9 @@ form {
       
     				</select>
 		</div>
-
-		
-		
+		</div>
+		<br>
+		<div id= "panel2" class="container" >
     		<label for="HA_verb"><H4>Headache at time of ED evaluation?</H4></label>
     			<select id="HA_verb" name="HA_verb">
 				<option value="">Select</option>
@@ -222,7 +250,8 @@ form {
       					<option value="4"> >4hrs after event</option>
     				</select>
 		</div>
-
+		</div><br>
+		<div id= "panel2" class="container" >
 		<label for="Vomit"><H4>Vomiting (at any time after injury)?</H4></label>
     			<select id="Vomit" name="Vomit">
 				<option value="">Select</option>
@@ -247,14 +276,15 @@ form {
       					<option value="4"> >4hrs after event</option>
     				</select>
 			<br>When was the last episode of vomiting?<br>
-    				<select id="VomitLast" name="VomitStart">
+    				<select id="VomitLast" name="VomitLast">
       					<option value="">Select</option>
       					<option value="1">< 1 hr before ED evaluation</option>
       					<option value="2">1 -4 hrs before ED evaluation</option>
       					<option value="3">> 4 hrs before ED evaluation</option>
     				</select>		
 		</div>		
-
+		</div><br>
+		<div id= "panel2" class="container" >
 		<label for="AMS"><H4>GCS < 15 or other signs of altered mental status (agitated, sleepy, slow to respond, repetitive questions in the ED, other)(at any time after injury)?</H4></label>
     			<select id="AMS" name="AMS">
 				<option value="">Select</option>
@@ -263,7 +293,7 @@ form {
     			</select>
 
   		<div id="otherFieldDivA">
-		<div id= "panel2" class="container" >
+		
 		Other signs of altered mental status:<br> 
     			<label for="AMSAgitated"><H4>Agitated</H4></label>
     				<select  id="AMSAgitated" name="AMSAgitated">
@@ -297,7 +327,8 @@ form {
     				</select>
 		</div>			
 		</div>
-		
+		<br>
+		<div id= "panel2" class="container" >
 		<label for="SFxBas"><H4>Signs of basilar skull fracture?</H4></label>
     			<select id="SFxBas" name="SFxBas">
 				<option value="">Select</option>
@@ -306,7 +337,6 @@ form {
     			</select>
 
   		<div id="otherFieldDivB">
-		<div id= "panel2" class="container" >
 		Other signs of altered mental status:<br> 
     			<label for="SFxBasHem"><H4>Hemotympanum</H4></label>
     				<select  id="SFxBasHem" name="SFxBasHem"> 
@@ -339,7 +369,9 @@ form {
       					<option value ="1">Yes</option>
     				</select>
 		</div>			
-		</div>		
+		</div>
+		<br>
+		<div id= "panel2" class="container" >		
 		<label for="SFxPalp"><H4>Palpable skull fracture?</H4></label>
     			<select id="SFxPalp" name="SFxPalp">
 				<option value="">Select</option>
@@ -357,6 +389,8 @@ form {
     				</select>
 		<br>
 		</div>	
+		</div>
+			
 		<label for="FontBulg"><H4>Anterior fontanelle bulging?</H4></label>
     			<select id="FontBulg" name="FontBulg">
       				<option value="">Select</option>
@@ -370,8 +404,8 @@ form {
       				<option value="0">No</option>
       				<option value="1">Yes</option>
     			</select>
-
-		
+		<br><br>
+		<div id= "panel2" class="container" >
 		<label for="Hema"><H4>Raised scalp hematoma(s) or swelling(s)?</H4></label>
     			<select id="Hema" name="Hema">
 				<option value="">Select</option>
@@ -395,9 +429,9 @@ form {
       					<option value="3">Large (>3 cm)</option>
     				</select>		
 		</div>		
-
+		</div>
 		<br>
-		
+		<div id= "panel2" class="container" >
 		<label for="Clav"><H4>Any evidence of trauma (including laceration, abrasion, hematoma) above the clavicles (includes neck/face/scalp)?</H4></label>
     			<select id="Clav" name="Clav">
 				<option value="">Select</option>
@@ -406,7 +440,7 @@ form {
     			</select>
 
   		<div id="otherFieldDivClav">
-		<div id= "panel2" class="container" >
+		
 		Trauma above the clavicles region:<br> Face
     				<select  id="ClavFace" name="ClavFace">
       					<option value ="">Select</option>
@@ -445,7 +479,8 @@ form {
     				</select>
 		</div>			
 		</div>		
-
+		<br>
+		<div id= "panel2" class="container" >
 		<label for="NeuroD"><H4>Neurological deficit (other than mental status)?</H4></label>
     			<select id="NeuroD" name="NeuroD">
 				<option value="">Select</option>
@@ -454,7 +489,7 @@ form {
     			</select>
 
   		<div id="otherFieldDivNeuroD">
-		<div id= "panel2" class="container" >
+		
 		Trauma above the clavicles region:<br>Motor
     				<select  id="NeuroDMotor" name="NeuroDMotor">
       					<option value ="">Select</option>
@@ -487,7 +522,8 @@ form {
     				</select>	
 		</div>			
 		</div>	
-
+		<br>
+		<div id= "panel2" class="container" >
 		<label for="OSI"><H4>Clinical evidence of other (non-head) substantial injuries: (includes but not limited to fractures, intra-abdominal injuries, intra-thoracic injuries and lacerations requiring operating room repair.)</H4></label>
     			<select id="OSI" name="OSI">
 				<option value="">Select</option>
@@ -496,7 +532,7 @@ form {
     			</select>
 
   		<div id="otherFieldDivOSI">
-		<div id= "panel2" class="container" >
+		
 		Other (non-head) substantial injury:<br> Extremity
     				<select  id="OSIExtremity" name="OSIExtremity">
       					<option value ="">Select</option>
@@ -541,14 +577,14 @@ form {
     				</select>
 		</div>			
 		</div>		
-
+		
 		<br> Clinical suspicion for alcohol or drug intoxication (not by laboratory testing)?
 		<select id="Drugs" name="Drugs" required>
 				<option value="">Select</option>
 				<option value="0">No</option>
 				<option value="1">Yes</option>
 				
-		</select>
+		</select><br>
 		<br> History of loss of Consciousness:
 		<select id="LOCSeparate" name="LOCSeparate" required>
 				<option value="">Select</option>
@@ -556,7 +592,7 @@ form {
 				<option value="1">Yes</option>
 				<option value="2">Suspected</option>
 				
-		</select>
+		</select><br>
 		<br> Duration of Loss of Consciousness:
 		<select id="LocLen" name="LocLen" required>
 				<option value="">Select</option>
@@ -569,11 +605,13 @@ form {
         <br>
 		<br>
         
-	<input id="button4" type="submit" align="center"></div>
-    </fieldset>
+	<input type="submit" align="center">
+</div>
+ </fieldset>
+ {% endif %}
 </form>
 <br>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
-<script src="j.js"></script>
+ 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
+	<script src="{{ url_for('static', filename='j.js') }}"></script>
 </html>
