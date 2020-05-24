@@ -8,7 +8,10 @@ $("#Seiz").change(function() {
 			} else {
 				$('#otherFieldDiv').hide();
 				$('#SeizOccur').removeAttr('required');
-				$('#SeizOccur').removeAttr('data-error');				
+				$('#SeizOccur').removeAttr('data-error');
+				$('#SeizLen').removeAttr('required');
+				$('#SeizLen').removeAttr('data-error');
+				
 			}
 		});
 		$("#Seiz").trigger("change");
@@ -26,7 +29,9 @@ $("#HA_verb").change(function() {
 			} else {
 				$('#otherFieldDivH').hide();
 				$('#HASeverity').removeAttr('required');
-				$('#HASeverity').removeAttr('data-error');				
+				$('#HASeverity').removeAttr('data-error');
+				$('#HAStart').removeAttr('required');
+				$('#HAStart').removeAttr('data-error');				
 			}
 		});
 		$("#HA_verb").trigger("change");
@@ -43,7 +48,11 @@ $("#Vomit").change(function() {
 			} else {
 				$('#otherFieldDivV').hide();
 				$('#VomitNbr').removeAttr('required');
-				$('#VomitNbr').removeAttr('data-error');				
+				$('#VomitNbr').removeAttr('data-error');
+				$('#VomitStart').removeAttr('required');
+				$('#VomitStart').removeAttr('data-error');
+				$('#VomitLast').removeAttr('required');
+				$('#VomitLast').removeAttr('data-error');				
 			}
 		});
 		$("#Vomit").trigger("change");
@@ -53,14 +62,15 @@ $("#Hema").change(function() {
 				$('#otherFieldDivHema').show();
 				$('#HemaLoc').attr('required','');
 				$('#HemaSize').attr('required','');
-			
 				$('#HemaLoc').attr('data-error', 'This field is required.');
 				$('#HemaSize').attr('data-error', 'This field is required.');
 				
 			} else {
 				$('#otherFieldDivHema').hide();
 				$('#HemaLoc').removeAttr('required');
-				$('#HemaLoc').removeAttr('data-error');				
+				$('#HemaLoc').removeAttr('data-error');
+				$('#HemaSize').removeAttr('required');
+				$('#HemaSize').removeAttr('data-error');				
 			}
 		});
 		$("#Hema").trigger("change");
@@ -81,7 +91,15 @@ $("#AMS").change(function() {
 			} else {
 				$('#otherFieldDivA').hide();
 				$('#AMSAgitated').removeAttr('required');
-				$('#AMSAgitated').removeAttr('data-error');				
+				$('#AMSAgitated').removeAttr('data-error');
+				$('#AMSSleep').removeAttr('required');
+				$('#AMSSleep').removeAttr('data-error');
+				$('#AMSRepeat').removeAttr('required');
+				$('#AMSRepeat').removeAttr('data-error');
+				$('#AMSOth').removeAttr('required');
+				$('#AMSOth').removeAttr('data-error');	
+				$('#AMSSlow').removeAttr('required');
+				$('#AMSSlow').removeAttr('data-error');			
 			}
 		});
 		$("#AMS").trigger("change");
@@ -102,7 +120,15 @@ $("#SFxBas").change(function() {
 			} else {
 				$('#otherFieldDivB').hide();
 				$('#SFxBasHem').removeAttr('required');
-				$('#SFxBasHem').removeAttr('data-error');				
+				$('#SFxBasHem').removeAttr('data-error');
+				$('#SFxBasOto').removeAttr('required');
+				$('#SFxBasOto').removeAttr('data-error');
+				$('#SFxBasPer').removeAttr('required');
+				$('#SFxBasPer').removeAttr('data-error');
+				$('#SFxBasRet').removeAttr('required');
+				$('#SFxBasRet').removeAttr('data-error');
+				$('#SFxBasRhi').removeAttr('required');
+				$('#SFxBasRhi').removeAttr('data-error');				
 			}
 		});
 		$("#SFxBas").trigger("change");
@@ -138,7 +164,17 @@ $("#Clav").change(function() {
 			} else {
 				$('#otherFieldDivClav').hide();
 				$('#ClavFace').removeAttr('required');
-				$('#ClavFace').removeAttr('data-error');				
+				$('#ClavFace').removeAttr('data-error');
+				$('#ClavNeck').removeAttr('required');
+				$('#ClavNeck').removeAttr('data-error');
+				$('#ClavFro').removeAttr('required');
+				$('#ClavFro').removeAttr('data-error');
+				$('#ClavOcc').removeAttr('required');
+				$('#ClavOcc').removeAttr('data-error');
+				$('#ClavPar').removeAttr('required');
+				$('#ClavPar').removeAttr('data-error');	
+				$('#ClavTem').removeAttr('required');
+				$('#ClavTem').removeAttr('data-error');			
 			}
 		});
 		$("#Clav").trigger("change");
@@ -159,7 +195,15 @@ $("#NeuroD").change(function() {
 			} else {
 				$('#otherFieldDivNeuroD').hide();
 				$('#NeuroDMotor').removeAttr('required');
-				$('#NeuroDMotor').removeAttr('data-error');				
+				$('#NeuroDMotor').removeAttr('data-error');
+				$('#NeuroDSensory').removeAttr('required');
+				$('#NeuroDSensory').removeAttr('data-error');
+				$('#NeuroDCranial').removeAttr('required');
+				$('#NeuroDCranial').removeAttr('data-error');
+				$('#NeuroDReflex').removeAttr('required');
+				$('#NeuroDReflex').removeAttr('data-error');
+				$('#NeuroDOth').removeAttr('required');
+				$('#NeuroDOth').removeAttr('data-error');				
 			}
 		});
 		$("#NeuroD").trigger("change");
@@ -184,8 +228,19 @@ $("#OSI").change(function() {
 			} else {
 				$('#otherFieldDivOSI').hide();
 				$('#OSIExtremity').removeAttr('required');
-				$('#OSIExtremity').removeAttr('data-error');				
+				$('#OSIExtremity').removeAttr('data-error');
+				$('#OSICut').removeAttr('required');
+				$('#OSICut').removeAttr('data-error');
+				$('#OSICspine').removeAttr('required');
+				$('#OSICspine').removeAttr('data-error');
+				$('#OSIFlank').removeAttr('required');
+				$('#OSIFlank').removeAttr('data-error');
+				$('#OSIAbdomen').removeAttr('required');
+				$('#OSIAbdomen').removeAttr('data-error');
+				$('#OSIPelvis').removeAttr('required');
+				$('#OSIPelvis').removeAttr('data-error');
+				$('#OSIOth').removeAttr('required');
+				$('#OSIOth').removeAttr('data-error');				
 			}
 		});
 		$("#OSI").trigger("change");
-
