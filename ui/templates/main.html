@@ -27,8 +27,6 @@
     <p style="font-size:50px">{{ result }}</p> 
     <br/>
 </div>
-<H2>Feature Importance</H2>
-<img src="{{url_for('static', filename='Feature_Importance.png')}}" alt="Feature Importance">
 {% else %}
 <H1>Decision Support Tool for Suspected Traumatic Brain Injuries</H1>
 <form action="{{ url_for('main') }}" method="POST">
