@@ -5,7 +5,7 @@ import numpy as np
 import sys
 import matplotlib.pyplot as plt
 
-sys.path.append('../Python/')
+sys.path.append('Python/')
 import TranformInputData
 import crudDB
 
@@ -45,7 +45,8 @@ def main():
 
 @app.route('/dashboard', methods=['GET', 'POST'])
 def dashboard():
-    return flask.render_template('dashboard.html')
+    feature_list = ['InjuryMech', 'Amnesia_verb', 'LOCSeparate', 'LocLen', 'Seiz', 'SeizOccur', 'SeizLen', 'ActNorm', 'HA_verb', 'HASeverity', 'HAStart', 'Vomit', 'VomitNbr', 'VomitStart', 'VomitLast', 'Dizzy', 'Intubated', 'Paralyzed', 'Sedated', 'GCSEye', 'GCSVerbal', 'GCSMotor', 'AMS', 'AMSAgitated', 'AMSSleep', 'AMSSlow', 'AMSRepeat', 'AMSOth', 'SFxPalp', 'SFxPalpDepress', 'FontBulg', 'SFxBas', 'SFxBasHem', 'SFxBasOto', 'SFxBasPer', 'SFxBasRet', 'SFxBasRhi', 'Hema', 'HemaLoc', 'HemaSize', 'Clav', 'ClavFace', 'ClavNeck', 'ClavFro', 'ClavOcc', 'ClavPar', 'ClavTem', 'NeuroD', 'NeuroDMotor', 'NeuroDSensory', 'NeuroDCranial', 'NeuroDReflex', 'NeuroDOth', 'OSI', 'OSIExtremity', 'OSICut', 'OSICspine', 'OSIFlank', 'OSIAbdomen', 'OSIPelvis', 'OSIOth', 'Drugs', 'Gender', 'Ethnicity', 'Race', 'Age']
+    return flask.render_template('dashboard.html',features=feature_list)
 
 @app.route('/records', methods=['GET', 'POST'], defaults={"page_num": 1}) 
 @app.route('/records/<int:page_num>', methods=['GET', 'POST'])
@@ -60,6 +61,7 @@ def recordPage(page_num):
         page = crudDB.totalPages()
         patients =  crudDB.patientdBypage(page_num)
     return flask.render_template("records.html", page_num=page_num, Patients=patients, page=page)
+
 
 @app.route("/records/<int:id>/edit/", methods = ['GET', 'POST'])
 def editRecord(id):
