@@ -1,0 +1,46 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Run unisa-tbi:jan Docker",
+            "type": "process",
+            "command": "docker",
+            "args": [
+                "run",
+                "-p",
+                "8000:80",
+                "-e",
+                "NEPTUNE_API_TOKEN=eyJhcGlfYWRkcmVzcyI6Imh0dHBzOi8vdWkubmVwdHVuZS5haSIsImFwaV91cmwiOiJodHRwczovL3VpLm5lcHR1bmUuYWkiLCJhcGlfa2V5IjoiMDhmOWE0ZmQtNjE1MC00YjQyLWI0ZWItODA4NDBlNDI2MTEyIn0=",
+                "-t",
+                "janhurst/unisa-tbi:jan"
+            ],
+            "group": "build",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            },
+            "problemMatcher": []
+        },
+        {
+            "type": "docker-build",
+            "label": "docker-build",
+            "platform": "python",
+            "dockerBuild": {
+                "tag": "janhurst/unisa-tbi:jan",
+                "dockerfile": "${workspaceFolder}/Dockerfile",
+                "context": "${workspaceFolder}",
+                "pull": true
+            }
+        },
+        {
+            "type": "docker-run",
+            "label": "docker-run: debug",
+            "dependsOn": [
+                "docker-build"
+            ],
+            "python": {
+                "file": "src/train/sklearn/train_xgboost.py"
+            }
+        }
+    ]
+}

@@ -1,0 +1,12 @@
+name: pandas-profiling
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python
+  - pandas
+  - numpy
+  - jupyter
+  - ipykernel
+  - scikit-learn
+  - pandas-profiling

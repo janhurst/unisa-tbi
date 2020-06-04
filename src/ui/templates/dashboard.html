@@ -6,7 +6,7 @@
 <div class="nav-item dropdown">
   <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{ formField.description }}</a>
   <div class="dropdown-menu">
-    {% for field in formField if not field.name.endswith('-csrf_token') and not field.name == 'General-DOB' %}
+    {% for field in formField if not field.name.endswith('-csrf_token') and not field.name == 'General-DOB' and not field.name == 'MentalStatus-GCSTotal' %}
       <a href="#" id="{{ field.name }}" class="dropdown-item">{{ field.short_name }}</a>
     {% endfor %}
   </div>

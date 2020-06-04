@@ -1,0 +1,21 @@
+name: tbi
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python
+  - pandas
+  - numpy
+  - scikit-learn
+  - flask
+  - flask-wtf
+  - SQLAlchemy
+  - Flask-SQLAlchemy
+  - jupyter
+  - ipykernel
+  - seaborn
+  - tpot
+  - pip
+  - pip:
+    - xgboost==1.0.2
+    - neptune-client==0.4.113

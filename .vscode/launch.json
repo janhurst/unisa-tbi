@@ -1,0 +1,29 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: Current File",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}/src",
+                "NEPTUNE_PROJECT": "unisa-tbi/unisa-tbi"
+            }
+        },
+        {
+            "name": "Flask",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/src/app.py",
+            "console": "integratedTerminal",
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}/src",
+                "NEPTUNE_PROJECT": "unisa-tbi/unisa-tbi",
+                "ARTIFACTS_DIR": "C:\\artifacts"
+            },
+            "cwd": "${workspaceFolder}"
+        },
+    ]
+}
