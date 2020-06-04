@@ -24,13 +24,12 @@ A Visual Studio Code workspace file is provided.
 ## Study Dataset
 This project requires a [study dataset](http://pecarn.org/studyDatasets/StudyDetails?studyID=4) from PECARN. Please obtain the CSV data file from PECARN and place it in the same directory as the project files.
 
-## Conda Environment
-A conda environment YAML file creating an environment named `tbi` is provided. This environment has all of the packages that have been used in the development of this work.
+## Python Environment
+A ```requirements.txt``` file is provided with the versions of selected packages used in this project. A Python virtual environment suitable to run the various scripts or modules can be created using the Python ```venv``` module:
 
-To create the environment run:
 ```
-conda env create -f environments/tbi.yml
-conda activate tbi
+python -m venv .venv
+.venv\Scripts\activate
 ```
 
 When executing any Python scripts or working with notebooks, please ensure the project's `src` folder is on Python's module search path (i.e. in the system path, or the ```PYTHONPATH```)
@@ -70,7 +69,7 @@ An example training pipeline, including sending results into [Neptune AI](https:
 ## Docker Image
 A Docker image providing a web user interface to assess patients can be built using the provided Dockerfile:
 ```
-docker built -t <repo>/<image>:<tag> -f .\Dockerfile
+docker build -t <repo>/<image>:<tag> .
 ```
 
 An image for the master branch has been pushed to [Docker Hub](https://hub.docker.com/repository/docker/janhurst/unisa-tbi) with the tag ```janhurst/unisa-tbi:latest```. This image can be run locally and can be linked to a Neptune AI repository via environment variables:

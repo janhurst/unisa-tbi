@@ -36,7 +36,7 @@ def clean(df):
     df = _clean_Amnesia_verb(df)
 
     # remove the NA category, as it is not very helpful
-    df = _remove_NA_category(df)
+    df = _remove_NA_category_for_boolean(df)
 
     # deal with NaNs
     df = _impute_boolean_nans(df)
@@ -124,10 +124,14 @@ def _clean_Amnesia_verb(df):
     df.loc[df['Amnesia_verb'].isna(), 'Amnesia_verb'] = 0
     return df
 
-def _remove_NA_category(df):
-    """ Remove the NA (92) category """
+def _remove_NA_category_for_boolean(df):
+    """ Remove the NA (92) category 
+    
+    For some variables, the NA (92) category does not have much value. For example, when a 
+    variable is a Yes/No with an NA category, the NA can be generally be assumed as a No
+    """
     NA = 92
-    category_with_na = [col for col in df.select_dtypes(include='category') if NA in df[col].cat.categories.values]
+    category_with_na = [col for col in df.select_dtypes(include='category') if NA in df[col].cat.categories.values and len(df[col].cat.categories) == 3]
 
     for col in category_with_na:
         # remove the NA/92 category, which will change NA values to NaNs
