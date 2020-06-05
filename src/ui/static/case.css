@@ -1,0 +1,24 @@
+
+.form-inline {
+    display: inline-block;
+}
+
+.form-inline label {
+    display: inline-block;
+    margin-right: 5px;
+}
+
+.form-group {
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-bottom: 10px;
+}
+
+div .card-body {
+    padding: 5px;
+    padding-bottom: 0px;
+}
+
+#CaseId, #General-AgeInMonth, #MentalStatus-GCSTotal {
+    width: 80px;
+}

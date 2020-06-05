@@ -1,0 +1,39 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+{% macro navsFromFormField(formField) %}
+<div class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{ formField.description }}</a>
+  <div class="dropdown-menu">
+    {% for field in formField if not field.name.endswith('-csrf_token') and not field.name == 'General-DOB' %}
+      <a href="#" id="{{ field.name }}" class="dropdown-item">{{ field.short_name }}</a>
+    {% endfor %}
+  </div>
+</div>
+{% endmacro %}
+
+<div class="card w-100 mt-3">
+  <div class="card-header">
+    <div class="nav nav-tabs card-header-tabs">
+      <a id="Correlations" href="#" class="nav-link active">Correlations</a>
+      
+      {{ navsFromFormField(caseForm.General) }}
+      {{ navsFromFormField(caseForm.History) }}
+      {{ navsFromFormField(caseForm.Symptoms) }}
+      {{ navsFromFormField(caseForm.MentalStatus) }}
+      {{ navsFromFormField(caseForm.Examination) }}
+
+    </div>
+  </div>
+  <div class="card-body">
+    <img id="imageHolder" class="img-fluid mx-auto d-block" src="" />
+  </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script src="{{ url_for('static', filename='dashboard.js') }}"></script>
+{% endblock scripts %}

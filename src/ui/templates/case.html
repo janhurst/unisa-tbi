@@ -1,0 +1,113 @@
+{% extends 'layout.html' %}
+
+{% block title %}New Case{% endblock %}
+
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='case.css') }}" />
+{% endblock head %}
+
+<!-- macro for displaying fields -->
+{% macro displayField(field) %}
+  {% if field.type =='BooleanField' %}
+    {% set field_classes=["form-check-input"] %}
+  {% else %}
+    {% set field_classes=["form-control"] %}
+  {% endif %}
+  {% do field_classes.append("is-invalid") if field.errors %}
+  <div id="{{ field.name }}-group" class="form-group form-inline {% if field.flags.hide %}d-none{% endif %}">
+    {{ field.label(class="form-inline") }}
+    {{ field(class=field_classes|join(' ')) }}
+  </div>
+{% endmacro %}
+
+<!-- macro to display each field and decorate with Bootstrap CSS -->
+{% macro displayFormField(formField) %}
+<div class="card w-100 mt-3">
+  <div class="card-header">{{ formField.description }}</div>
+  <div class="card-body">
+    {{ formField.csrf_token }}
+    {% for field in formField if not field.name.endswith('-csrf_token') %}
+      {{ displayField(field) }}
+    {% endfor %}
+  </div>
+</div>
+{% endmacro %}
+
+{% block content %}
+
+  {% if prediction is defined %}
+  <div class="card w-100 mt-3">
+    {% if prediction == 0 %}
+    <div class="card-body text-center bg-success" style:"background-color:green;">
+      Clinically important Traumatic Brain Injury NOT likely.
+    {% else %}
+    <div class="card-body text-center bg-danger">
+      Clinically important Traumatic Brain Injury is likely.
+    {% endif %}
+    </div>
+
+  </div>
+  {% endif %}
+
+  {% if error is defined %}
+  <div class="alert alert-danger text-center" role="alert">
+    Sorry, the model <b>{{ modelform.model.data }}</b> isn't compatible with the case data. Please try a different model.
+  </div>
+  <div>
+    {{ error }}
+  </div>
+  {% endif %}
+
+  <div class="row">
+    <div class="col-md-12">
+      {% if request.path == '/case/' and case.CaseId.data == None %}
+        <form action="{{ url_for('case.newCase') }}" method="POST">
+      {% else %}
+        <form action="{{ url_for('case.updateExistingCase', id=case.CaseId.data, update=update) }}" method="POST">
+      {% endif %}
+        {{ case.csrf_token }}
+
+        <div class="card w-100 mt-3 border-0">
+          <div class="card-body">
+    
+          <!-- case id -->
+          {{ displayField(case.CaseId)}}
+
+          <!-- model picker -->
+          <div class="col-auto form-inline">
+            {{ displayField(modelform.model) }}
+          </div>
+          <div class="col-3 form-inline">
+            <button type="submit" input name="predict" class="form-control btn btn-sm btn-primary">Save & Predict</button>
+            {% if prediction is defined %}
+            <a href="{{ url_for('interpret.model', case_id=case.CaseId.data, experiment_id=modelform.model.data.split('/')[0], model=modelform.model.data.split('/')[1]) }}" class="form-control btn btn-sm btn-secondary">Interpret</a>
+            {% endif %}
+          </div>
+
+          </div>
+        </div>
+
+        {{ displayFormField(case.General) }}
+        {{ displayFormField(case.History) }}
+        {{ displayFormField(case.Symptoms) }}
+        {{ displayFormField(case.MentalStatus) }}
+        {{ displayFormField(case.Examination) }}
+
+        {% if update %}
+          {{ displayFormField(case.Evaluation) }}
+        {% else %}
+          {{ case.Evaluation.csrf_token }}
+        {% endif %}
+      </form>
+    </div>
+  </div>
+{% endblock %}
+
+{% block scripts %}
+  {{ super() }}
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
+  <script src="{{ url_for('static', filename='case.js') }}"></script>
+{% endblock scripts %}
