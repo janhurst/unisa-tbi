@@ -9,7 +9,7 @@ from os import path, mkdir, getenv, environ
 if 'SQLALCHEMY_DATABASE_URI' in environ:
     engine = create_engine(getenv('SQLALCHEMY_DATABASE_URI'), convert_unicode=True)
 else:
-    engine = create_engine('sqlite:///tbi.db', convert_unicode=True)
+    engine = create_engine('sqlite:///tbi.db', convert_unicode=True, pool_pre_ping=True)
 
 db_session = scoped_session(sessionmaker(autocommit=False,
                                          autoflush=False,
