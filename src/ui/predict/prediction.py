@@ -10,7 +10,8 @@ from matplotlib.backends.backend_agg import FigureCanvasAgg
 import io
 import matplotlib as plt
 
-import shap
+from sklearn.tree import DecisionTreeClassifier
+from xgboost import XGBClassifier
 
 class Prediction:
     
@@ -61,20 +62,34 @@ class Prediction:
 
     def feature_importance(self):
         plt.use('agg')
-
         feat_importances = None
         clf = self.pipeline.steps[-1][1]
+
+        # see if the classifier has a feature importance attribute
         if hasattr(clf, 'feature_importances_'):
             importances = clf.feature_importances_
-            # figure out indices then names
-            names = self.pipeline.input_features.columns[self.pipeline.steps[-2][1].get_support()]
+            
+            # and then figure out indices and names
 
+            # sklearn Decision Tree
+            if isinstance(clf, DecisionTreeClassifier) or len(self.pipeline.steps) < 3:
+                names = self.pipeline.input_features.columns
+
+            # XGBoost 
+            if isinstance(clf, XGBClassifier):
+                # with feature selection step
+                if len(self.pipeline.steps) > 2:
+                    names = self.pipeline.input_features.columns[self.pipeline.steps[-2][1].get_support()]
+
+            # create the series
             feat_importances = pd.Series(importances, index=names)
+            feat_importances = feat_importances.nlargest(10)
+            feat_importances.sort_values(ascending=True, inplace=True)
         
         fig = Figure()
         ax = fig.add_subplot(1,1,1)
 
-        feat_importances.nlargest(10).plot.barh(ax=ax)
+        feat_importances.plot.barh(ax=ax)
         
         # create output stream
         output = io.BytesIO()
@@ -86,20 +101,4 @@ class Prediction:
         output.seek(0)
 
         return output
-
-    def shap(self):
-        plt.use('agg')
-
-        shap.initjs()
-
-        explainer = shap.TreeExplainer(self.pipeline.steps[-1][1])
-        shap_values = explainer.shap_values(self.df.loc[:, self.pipeline.steps[-2][1].get_support()])
-        
-        fig = Figure()
-        fig.add_axes(shap.decision_plot(explainer.expected_value, shap_values[0]))
-
-        output = io.BytesIO()
-        FigureCanvasAgg(fig).print_png(output)
-        output.seek(0)
-
-        return output
+  
