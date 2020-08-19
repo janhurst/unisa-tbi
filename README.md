@@ -64,7 +64,7 @@ preprocessed_df = pecarn.preprocess(pecarn.clean(pecarn.load()))
 
 The preprocess module applies further cleaning rules to the dataframe to prepare it for consumption in a machine learning algorithm. Specifically, the datatypes of all variables is converted into `float64`. This can be incorporated into a sklearn pipeline. 
 
-An example training pipeline, including sending results into [Neptune AI](https://neptune.ai) is provided in [src/train/sklearn/train_decisiontreeclassifier.py](https://github.com/janhurst/capstone/blob/master/src/train/sklearn/train_decisiontreeclassifier.py)
+An example training pipeline, including sending results into [Neptune AI](https://neptune.ai) is provided in [src/train/sklearn/train_decisiontreeclassifier.py](https://github.com/janhurst/unisa-tbi/blob/master/src/train/sklearn/train_decisiontree.py)
 
 ## Docker Image
 A Docker image providing a web user interface to assess patients can be built using the provided Dockerfile:
