@@ -1,6 +1,6 @@
 # Predicting Traumatic Brain Injuries (TBI) in Children
 This project aims to provide a decision support tool based on a machine learning predictive model for assessing the need for a CT scan
-for children who present to Emergency Departments with head trama.
+for children who present to Emergency Departments with head trauma.
 
 The predictive model is initially built from a study dataset entitled 
 *Identification of children at very low risk of clinically-important brain injuries after head trauma: a prospective cohort study*
